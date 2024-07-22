@@ -12,8 +12,23 @@ import {
 import styles from "./page.module.css";
 
 export default function IndexPage() {
+  const [greeting, setGreeting] = React.useState("");
+
+  React.useEffect(() => {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      setGreeting("Bom dia");
+    } else if (currentHour >= 12 && currentHour < 18) {
+      setGreeting("Boa tarde");
+    } else {
+      setGreeting("Boa noite");
+    }
+  }, []);
+
   return (
     <div className={`container ${styles.pageWrapper}`}>
+      <h1>{greeting}, aluno(a)👋!</h1>
+
       <div className={styles.links}>
         <ul>
           <li className={styles.linkWrapper}>
