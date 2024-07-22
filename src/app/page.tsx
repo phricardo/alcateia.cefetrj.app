@@ -8,6 +8,7 @@ import {
   Student,
   ArrowSquareOut,
   Newspaper,
+  IdentificationCard,
 } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 
@@ -53,6 +54,15 @@ export default function IndexPage() {
                 <CalendarStar />
               </div>
               Eventos
+            </Link>
+          </li>
+          <li className={styles.linkWrapper}>
+            <Link href="/" className={styles.disable}>
+              <span className={styles.tooltip}>Em breve</span>
+              <div>
+                <IdentificationCard />
+              </div>
+              <span>Minha Carteirinha Digital</span>
             </Link>
           </li>
           <li className={styles.linkWrapper}>
