@@ -1,0 +1,17 @@
+{
+  "name": "Notifica Cefet/RJ",
+  "short_name": "Notifica Cefet/RJ",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "sizes": "57x57",
+      "src": "/favicon/apple-touch-icon.png"
+    },
+    {
+      "src": "/favicon/favicon-mobile.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

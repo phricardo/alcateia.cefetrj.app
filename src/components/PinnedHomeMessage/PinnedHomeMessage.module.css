@@ -1,0 +1,19 @@
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  gap: 1rem;
+  max-width: 800px;
+  background: #f0fad4;
+  padding: 1rem 1.5rem;
+  border-radius: 0.4rem;
+}
+
+.message h1 {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}

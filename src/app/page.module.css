@@ -1,0 +1,92 @@
+.pageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100dvh - 4.5rem);
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.links ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.links ul li {
+  flex: 1 1 200px;
+}
+
+@media (max-width: 600px) {
+  .links ul li {
+    flex: initial;
+  }
+}
+
+.linkWrapper a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  text-align: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  font-size: 1rem;
+  position: relative;
+  text-wrap: wrap;
+  text-align: center;
+}
+
+.linkWrapper a.disable {
+  pointer-events: none;
+  color: #d0d0d7;
+}
+
+.linkWrapper a.disable .tooltip {
+  font-size: 0.8rem;
+  color: #ffffff;
+  background: #165cdd;
+  position: absolute;
+  top: 15px;
+  z-index: 1;
+  padding: 0.1rem;
+  border-radius: 0.2rem;
+}
+
+.linkWrapper a div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: #165cdd;
+
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  border-radius: 50%;
+  height: 5rem;
+  width: 5rem;
+}
+
+.linkWrapper a div svg {
+  height: 6rem;
+  width: 6rem;
+}
+
+.linkWrapper a.disable div {
+  filter: saturate(0);
+  opacity: 0.5;
+}
+
+.linkWrapper a:hover div {
+  background: #2c6be0;
+}
+
+.linkWrapper a span {
+  text-align: center;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+}

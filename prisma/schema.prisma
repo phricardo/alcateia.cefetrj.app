@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ChannelPublished {
+  STUDENT_NEWSLETTER
+  PORTAL_CEFETRJ
+  OTHERS
+}
+
+enum Campus {
+  MARACANA
+  ANGRA_DOS_REIS
+  ITAGUAI
+  MARIA_DA_GRACA
+  NOVA_FRIBURGO
+  NOVA_IGUACU
+  PETROPOLIS
+  VALENCA
+}
+
+model News {
+  id          Int       @id @default(autoincrement())
+  guid        String?   @unique
+  title       String
+  description String
+  pubDate     DateTime?
+
+  channel         ChannelPublished @default(OTHERS)
+  campus          Campus?
+  isAllCampusNews Boolean          @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Events {
+  id          Int       @id @default(autoincrement())
+  guid        String?   @unique
+  title       String
+  description String
+  thumbnail   String?
+  pubDate     DateTime?
+
+  channel          ChannelPublished @default(OTHERS)
+  campus           Campus?
+  isAllCampusEvent Boolean          @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

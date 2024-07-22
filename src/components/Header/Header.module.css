@@ -1,0 +1,50 @@
+.header {
+  width: 100%;
+  padding: 1rem 0.5rem;
+  height: 4.5rem;
+  color: #ffffff;
+  background: #0f4098;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  color: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.header .container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header p {
+  margin-top: 0.4rem;
+}
+
+.btnBack {
+  background: transparent;
+  font-weight: 600;
+}

@@ -1,0 +1,49 @@
+.skeletonWrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.calendars {
+  margin-top: 1rem;
+  min-height: 100dvh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+}
+
+.wrapper > div {
+  margin: 1rem 0;
+  background: #f4efef;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  border: 0.1rem solid #000000;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.wrapper h3 {
+  color: #000000;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+
+.wrapper h4 {
+  color: #000000;
+  margin-bottom: 1rem;
+}
+
+.wrapper ul {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
+}
+
+.headerCalendar {
+  margin: 2rem 0;
+  text-align: center;
+}
