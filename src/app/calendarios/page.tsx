@@ -57,18 +57,20 @@ export default function CalendarsPage() {
       {calendarData && (
         <div className={`container ${styles.calendars}`}>
           <div className={styles.nav}>
-            <label htmlFor="campusSelect">Selecione a Unidade:</label>
-            <select
-              id="campusSelect"
-              value={selectedCampus}
-              onChange={handleCampusChange}
-            >
-              {Object.keys(campusCalendarsLinks).map((campus) => (
-                <option key={campus} value={campus}>
-                  {campusDisplayNames[campus]}
-                </option>
-              ))}
-            </select>
+            <label htmlFor="campusSelect">
+              Selecione a Unidade:
+              <select
+                id="campusSelect"
+                value={selectedCampus}
+                onChange={handleCampusChange}
+              >
+                {Object.keys(campusCalendarsLinks).map((campus) => (
+                  <option key={campus} value={campus}>
+                    {campusDisplayNames[campus]}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
 
           <div className={styles.headerCalendar}>

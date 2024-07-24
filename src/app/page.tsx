@@ -11,25 +11,13 @@ import {
   IdentificationCard,
 } from "@phosphor-icons/react";
 import styles from "./page.module.css";
+import GreetingMessage from "@/components/GreetingMessage/GreetingMessage";
 
 export default function IndexPage() {
-  const [greeting, setGreeting] = React.useState("");
-
-  React.useEffect(() => {
-    const currentHour = new Date().getHours();
-    if (currentHour >= 5 && currentHour < 12) {
-      setGreeting("Bom dia");
-    } else if (currentHour >= 12 && currentHour < 18) {
-      setGreeting("Boa tarde");
-    } else {
-      setGreeting("Boa noite");
-    }
-  }, []);
-
   return (
-    <div className={`container ${styles.pageWrapper}`}>
-      <h1>{greeting}, aluno(a)👋!</h1>
-
+    <div className={`container ${styles.wrapper}`}>
+      <GreetingMessage />
+      <br /> <br />
       <div className={styles.links}>
         <ul>
           <li className={styles.linkWrapper}>
@@ -37,7 +25,7 @@ export default function IndexPage() {
               <div>
                 <Newspaper />
               </div>
-              Noticias
+              <span>Noticias</span>
             </Link>
           </li>
           <li className={styles.linkWrapper}>
@@ -45,7 +33,7 @@ export default function IndexPage() {
               <div>
                 <Calendar />
               </div>
-              Calendario Acadêmico
+              <span>Calendario Acadêmico</span>
             </Link>
           </li>
           <li className={styles.linkWrapper}>
@@ -53,10 +41,10 @@ export default function IndexPage() {
               <div>
                 <CalendarStar />
               </div>
-              Eventos
+              <span>Eventos</span>
             </Link>
           </li>
-          <li className={styles.linkWrapper}>
+          {/* <li className={styles.linkWrapper}>
             <Link href="/" className={styles.disable}>
               <span className={styles.tooltip}>Em breve</span>
               <div>
@@ -64,7 +52,7 @@ export default function IndexPage() {
               </div>
               <span>Minha Carteirinha Digital</span>
             </Link>
-          </li>
+          </li> */}
           <li className={styles.linkWrapper}>
             <Link
               href="https://alunos.cefet-rj.br/aluno/login.action"

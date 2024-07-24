@@ -62,7 +62,7 @@ export default function EventsPage() {
     try {
       setLoading(true);
       const url = buildURL();
-      const response = await fetch(url);
+      const response = await fetch(url, { next: { revalidate: 3600 } });
       const data = await handleFetchResponse(response);
       setData(data);
     } catch (error: unknown) {

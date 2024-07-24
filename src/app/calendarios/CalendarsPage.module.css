@@ -10,6 +10,17 @@
   min-height: 100dvh;
 }
 
+.calendars .nav label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.calendars .nav select {
+  width: 100%;
+  height: 50px;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;

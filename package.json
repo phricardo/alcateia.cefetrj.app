@@ -1,7 +1,19 @@
 {
-  "name": "cefetrj-gateway-api",
+  "name": "integra.cefet-rj",
   "version": "0.1.0",
   "private": true,
+  "license": "GPL-3.0",
+  "author": {
+    "name": "Pedro Ricardo",
+    "email": "contato@phricardo.com.br"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phricardorj/integra.cefetrj"
+  },
+  "bugs": {
+    "url": "https://github.com/phricardorj/integra.cefetrj/issues"
+  },
   "scripts": {
     "dev": "prisma generate && prisma db push --force-reset && next dev",
     "build": "prisma generate && next build",

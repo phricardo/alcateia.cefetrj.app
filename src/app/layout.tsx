@@ -1,11 +1,21 @@
+import { Metadata } from "next";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
 import { type_first } from "@/functions/fonts";
 import "./globals.css";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Integra Cefet/RJ",
-  description: "",
+  description: "Integração extraoficial e código aberto com o Cefet/RJ",
+  icons: {
+    icon: [
+      {
+        type: "image/x-icon",
+        url: "/icons/favicon.ico",
+        href: "/icons/favicon.ico",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({

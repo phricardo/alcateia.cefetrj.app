@@ -1,15 +1,26 @@
 {
-  "name": "Notifica Cefet/RJ",
-  "short_name": "Notifica Cefet/RJ",
+  "name": "Integra.Cefet/RJ",
+  "short_name": "Integra.Cefet/RJ",
   "start_url": "/",
   "display": "standalone",
   "icons": [
     {
-      "sizes": "57x57",
-      "src": "/favicon/apple-touch-icon.png"
+      "src": "/icons/favicon-16x16.png",
+      "type": "image/png",
+      "sizes": "16x16"
     },
     {
-      "src": "/favicon/favicon-mobile.png",
+      "src": "/icons/favicon-57x57.png",
+      "type": "image/png",
+      "sizes": "57x57"
+    },
+    {
+      "src": "/icons/favicon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/favicon-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

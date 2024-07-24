@@ -47,7 +47,14 @@ export async function GET(request: NextRequest, response: NextResponse) {
 
   try {
     const feedPromises = feeds.map(async (RSS_URL) => {
-      const response = await axios.get(RSS_URL);
+      const response = await axios.get(RSS_URL, {
+        headers: {
+          "Cache-Control": "no-cache",
+          Pragma: "no-cache",
+          Expires: "0",
+        },
+      });
+
       const data = (await parseStringPromise(response.data)) as RSSFeedRequest;
 
       const { campus, isAllCampusEvent } = determineCampusFromURL(RSS_URL);
