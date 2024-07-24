@@ -15,7 +15,7 @@ export function Footer() {
         href="https://github.com/phricardorj/integra.cefetrj"
         target="_blank"
       >
-        Github / Repo
+        Github / Repositório
       </Link>
     </footer>
   );

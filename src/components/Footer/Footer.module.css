@@ -2,8 +2,9 @@
   width: 100%;
   padding: 1rem 0.5rem;
   min-height: 4rem;
-  color: #ffffff;
-  background: #0f4098;
+  color: #cfc2c2;
+  background: #000000;
+  border-top: 0.1rem solid #0f4098;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +16,7 @@
 }
 
 .footer a {
-  color: #dad0d0;
+  color: #ffffff;
 }
 
 .footer div {
@@ -27,6 +28,7 @@
 }
 
 .footer h1 {
+  color: #ffffff;
   font-size: 1.2rem;
   font-weight: 600;
 }
