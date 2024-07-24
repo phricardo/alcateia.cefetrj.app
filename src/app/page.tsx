@@ -25,7 +25,7 @@ export default function IndexPage() {
               <div>
                 <Newspaper />
               </div>
-              <span>Noticias</span>
+              <span>Notícias</span>
             </Link>
           </li>
           <li className={styles.linkWrapper}>
@@ -33,7 +33,7 @@ export default function IndexPage() {
               <div>
                 <Calendar />
               </div>
-              <span>Calendario Acadêmico</span>
+              <span>Calendário Acadêmico</span>
             </Link>
           </li>
           <li className={styles.linkWrapper}>
