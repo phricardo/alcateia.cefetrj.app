@@ -9,7 +9,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div>
         <h1>Integra.Cefet/RJ</h1>
-        <p>Integração extraoficial e código aberto com o Cefet/RJ</p>
+        <p>Integração extraoficial e de código aberto com o Cefet/RJ</p>
       </div>
       <Link
         href="https://github.com/phricardorj/integra.cefetrj"
