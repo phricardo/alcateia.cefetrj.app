@@ -6,13 +6,25 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Integra Cefet/RJ",
-  description: "Integração extraoficial e código aberto com o Cefet/RJ",
+  description: "Integração extraoficial e de código aberto com o Cefet/RJ",
   icons: {
     icon: [
       {
         type: "image/x-icon",
         url: "/icons/favicon.ico",
         href: "/icons/favicon.ico",
+      },
+      {
+        media: "(prefers-color-scheme: light)",
+        type: "image/png",
+        url: "/icons/favicon-dark.png",
+        href: "/icons/favicon-dark.png",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        type: "image/png",
+        url: "/icons/favicon-light.png",
+        href: "/icons/favicon-light.png",
       },
     ],
   },
