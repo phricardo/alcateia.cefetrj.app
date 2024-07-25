@@ -1,8 +1,10 @@
 {
-  "name": "Integra.Cefet/RJ",
-  "short_name": "Integra.Cefet/RJ",
+  "name": "Integra Cefet/RJ",
+  "short_name": "Integra",
   "start_url": "/",
   "display": "standalone",
+  "background_color": "rgb(15, 64, 152)",
+  "theme_color": "rgb(15, 64, 152)",
   "icons": [
     {
       "src": "/icons/favicon-16x16.png",
