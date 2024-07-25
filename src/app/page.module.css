@@ -79,11 +79,14 @@
 
 @media (max-width: 650px) {
   .links ul li {
-    flex: 1 1 150px;
+    flex: 1 1 160px;
+  }
+  .links ul li a span {
+    flex-direction: column;
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 300px) {
   .links ul li {
     flex: auto;
   }
