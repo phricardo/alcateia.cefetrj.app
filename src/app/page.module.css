@@ -47,9 +47,12 @@
 
   background: #f2f2f5;
   border: 0.2rem solid #f2f2f5;
+
+  outline: none;
 }
 
-.links ul li a:hover {
+.links ul li a:hover,
+.links ul li a:focus {
   border-color: #0f4098;
 }
 
@@ -72,4 +75,16 @@
   width: 4rem;
   height: 4rem;
   color: #0f4098;
+}
+
+@media (max-width: 650px) {
+  .links ul li {
+    flex: 1 1 150px;
+  }
+}
+
+@media (max-width: 400px) {
+  .links ul li {
+    flex: auto;
+  }
 }

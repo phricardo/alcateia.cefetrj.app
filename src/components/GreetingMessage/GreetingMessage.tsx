@@ -18,7 +18,7 @@ export default function GreetingMessage() {
   }, []);
 
   return (
-    <h1>
+    <h1 style={{ textAlign: "center" }}>
       {greeting ? (
         `${greeting}, aluno(a)👋!`
       ) : (
