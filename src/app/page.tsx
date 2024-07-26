@@ -9,6 +9,7 @@ import {
   ArrowSquareOut,
   Newspaper,
   IdentificationCard,
+  ChalkboardSimple,
 } from "@phosphor-icons/react";
 import styles from "./page.module.css";
 import GreetingMessage from "@/components/GreetingMessage/GreetingMessage";
@@ -59,7 +60,7 @@ export default function IndexPage() {
               target="_blank"
             >
               <div>
-                <Student />
+                <ChalkboardSimple />
               </div>
               <span>
                 Portal do Aluno <ArrowSquareOut color="#000000" size={18} />
