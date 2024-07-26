@@ -3,16 +3,28 @@
 import React from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
+import { useRouter } from "next/navigation";
 import LoginAction from "../../../actions/login.action";
 import SubmitButton from "@/components/Button/SubmitButton";
+import { UserContext } from "@/contexts/user-context";
 import styles from "./LoginPage.module.css";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const { setUser, user } = React.useContext(UserContext);
   const [state, action] = useFormState(LoginAction, {
     ok: false,
     error: null,
     data: null,
   });
+
+  React.useEffect(() => {
+    if (state.ok) setUser(state.data);
+  }, [state, setUser]);
+
+  React.useEffect(() => {
+    if (user) router.push("/");
+  }, [user, router]);
 
   return (
     <div className={`container ${styles.pageWrapper}`}>

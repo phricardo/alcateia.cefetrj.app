@@ -5,6 +5,7 @@ import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 import {
   BASE_URL,
+  capitalizeName,
   extractCPF,
   extractStudentInfo,
 } from "@/app/api/utils/links.util";
@@ -71,7 +72,7 @@ export async function POST(request: NextRequest) {
           {
             status: { ok: true },
             student: {
-              name,
+              name: capitalizeName(name),
               studentId,
               cpf,
               ...studentData,

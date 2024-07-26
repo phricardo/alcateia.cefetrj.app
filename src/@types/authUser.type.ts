@@ -1,4 +1,4 @@
-export type StudentResponse = {
+export type IAuthenticatedUser = {
   name: string;
   studentId: string;
   cpf: string;

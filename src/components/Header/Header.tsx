@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import styles from "./Header.module.css";
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BackLink } from "../BackLink/BackLink";
-import Link from "next/link";
+import { UserContext } from "@/contexts/user-context";
+import styles from "./Header.module.css";
 
 export function Header() {
   const pathname = usePathname();
+  const { user } = React.useContext(UserContext);
 
   return (
     <header className={styles.header}>
@@ -17,6 +19,7 @@ export function Header() {
             <h1 className={styles.logo}>Integra.Cefet/RJ</h1>
           </Link>
         </div>
+
         {pathname != "/" && (
           <div>
             <BackLink
@@ -25,6 +28,12 @@ export function Header() {
               redirectToHome={true}
             />
           </div>
+        )}
+
+        {!user ? (
+          <Link href="/auth/login">Entrar</Link>
+        ) : (
+          <Link href="/">Sair</Link>
         )}
       </div>
     </header>

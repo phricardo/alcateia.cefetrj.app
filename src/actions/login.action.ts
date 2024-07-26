@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { LOGIN_POST } from "@/functions/api";
-import { StudentResponse } from "@/@types/studentResponse.type";
+import { IAuthenticatedUser } from "@/@types/authUser.type";
 
 export default async function LoginAction(
   state: {},
@@ -10,7 +10,7 @@ export default async function LoginAction(
 ): Promise<{
   ok: boolean;
   error: string | null;
-  data: StudentResponse | null;
+  data: IAuthenticatedUser | null;
 }> {
   const username = formData.get("username") as string | null;
   const password = formData.get("password") as string | null;

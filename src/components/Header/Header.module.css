@@ -9,6 +9,11 @@
   justify-content: center;
 }
 
+.header a {
+  color: #ffffff;
+  font-size: 1rem;
+}
+
 .logo {
   color: #ffffff;
   display: inline-flex;

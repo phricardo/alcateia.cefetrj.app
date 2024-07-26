@@ -79,3 +79,10 @@ export const extractCPF = (html: string): string | null => {
 
   return cpf;
 };
+
+export function capitalizeName(name: string): string {
+  return name
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
