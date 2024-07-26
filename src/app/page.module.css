@@ -53,7 +53,7 @@
 
 .links ul li a:hover,
 .links ul li a:focus {
-  border-color: #0f4098;
+  border-color: #00407a;
 }
 
 .links ul li a span {
@@ -74,7 +74,7 @@
 .links ul li a div svg {
   width: 4rem;
   height: 4rem;
-  color: #0f4098;
+  color: #00407a;
 }
 
 @media (max-width: 650px) {
