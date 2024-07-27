@@ -5,7 +5,9 @@ import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 import {
   BASE_URL,
+  capitalizeName,
   extractCPF,
+  extractPnotifyText,
   extractStudentInfo,
 } from "@/app/api/utils/links.util";
 
@@ -18,7 +20,7 @@ export async function POST(request: NextRequest) {
     const { username, password } = await request.json();
 
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-      await client.post(
+      const response = await client.post(
         `${BASE_URL}/aluno/j_security_check`,
         `j_username=${encodeURIComponent(
           username
@@ -30,71 +32,75 @@ export async function POST(request: NextRequest) {
         }
       );
 
+      const pnotifyText = extractPnotifyText(response.data);
+      if (pnotifyText) throw new Error(pnotifyText);
+
       const cookies = cookieJar.getCookiesSync(BASE_URL);
       const jsessionidCookieAfterLogin = cookies.find(
         (cookie) => cookie.key === "JSESSIONIDSSO"
       );
 
       if (jsessionidCookieAfterLogin) {
-        const response = await client.get(`${BASE_URL}/aluno/index.action`, {
-          headers: {
-            Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
-          },
-        });
+        const indexResponse = await client.get(
+          `${BASE_URL}/aluno/index.action`,
+          {
+            headers: {
+              Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
+            },
+          }
+        );
 
-        const $ = cheerio.load(response.data);
+        const $ = cheerio.load(indexResponse.data);
         const name = $("span#menu > button").text().trim();
         const studentId = $("#matricula").val() as string;
 
-        const profileResponse = await client.get(
-          `${BASE_URL}/aluno/aluno/perfil/perfil.action`,
-          {
+        const [profileResponse, docsResponse] = await Promise.all([
+          client.get(`${BASE_URL}/aluno/aluno/perfil/perfil.action`, {
             headers: {
               Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
             },
-          }
-        );
+          }),
+          client.get(
+            `${BASE_URL}/aluno/aluno/relatorio/relatorios.action?matricula=${studentId}`,
+            {
+              headers: {
+                Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
+              },
+            }
+          ),
+        ]);
 
-        const docsResponse = await client.get(
-          `${BASE_URL}/aluno/aluno/relatorio/relatorios.action?matricula=${studentId}`,
-          {
-            headers: {
-              Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
-            },
-          }
-        );
-
-        const cpf = extractCPF(profileResponse.data);
+        const documentId = extractCPF(profileResponse.data);
         const studentData = extractStudentInfo(docsResponse.data);
 
         return NextResponse.json(
           {
             status: { ok: true },
             student: {
-              name,
+              name: capitalizeName(name),
               studentId,
-              cpf,
+              document: {
+                type: "NATURAL_PERSON",
+                id: documentId,
+              },
               ...studentData,
             },
-            cookies: { JSESSIONIDSSO: jsessionidCookieAfterLogin },
+            cookies: { SSO: jsessionidCookieAfterLogin },
           },
           { status: 200 }
         );
       }
 
-      if (attempt === MAX_RETRIES) {
-        return NextResponse.json(
-          {
-            error: "Authentication failed.",
-          },
-          { status: 401 }
-        );
-      }
+      if (attempt === MAX_RETRIES)
+        throw new Error("Tente novamente mais tarde.");
     }
   } catch (error: unknown) {
     return NextResponse.json(
       {
-        error: "Authentication failed.",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Tente novamente mais tarde.",
       },
       { status: 400 }
     );

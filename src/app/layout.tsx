@@ -1,7 +1,8 @@
 import { Metadata } from "next";
+import { type_first } from "@/functions/fonts";
 import { Header } from "@/components/Header/Header";
 import { Footer } from "@/components/Footer/Footer";
-import { type_first } from "@/functions/fonts";
+import { UserContextProvider } from "@/contexts/user-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -40,9 +41,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={customFontsVariables}>
-        <Header />
-        {children}
-        <Footer />
+        <UserContextProvider>
+          <Header />
+          {children}
+          <Footer />
+        </UserContextProvider>
       </body>
     </html>
   );

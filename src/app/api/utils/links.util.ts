@@ -79,3 +79,21 @@ export const extractCPF = (html: string): string | null => {
 
   return cpf;
 };
+
+export function capitalizeName(name: string): string {
+  return name
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .join(" ");
+}
+
+export function extractPnotifyText(html: string): string | null {
+  const $ = cheerio.load(html);
+  const scriptContent = $("script").text();
+
+  const pnotifyMatch = scriptContent.match(
+    /pnotify_text\s*:\s*['"]([^'"]+)['"]/
+  );
+
+  return pnotifyMatch ? pnotifyMatch[1] : null;
+}
