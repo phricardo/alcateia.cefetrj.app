@@ -21,7 +21,7 @@ export function LOGIN_POST({
 
 export function USER_GET() {
   return {
-    url: `${API_BASE_URL}/api/v1/users`,
+    url: `${API_BASE_URL}/v1/users`,
     options: {
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export function USER_GET() {
 
 export function LOGIN_VALIDATE_POST(token: string) {
   return {
-    url: `${API_BASE_URL}/api/v1/login/validate`,
+    url: `${API_BASE_URL}/v1/login/validate`,
     options: {
       method: "POST",
       headers: {
