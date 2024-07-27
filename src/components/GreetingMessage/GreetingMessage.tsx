@@ -18,7 +18,7 @@ function getDisplayName(user: IAuthenticatedUser | null): string {
 }
 
 export default function GreetingMessage() {
-  const { user } = React.useContext(UserContext);
+  const { user, isLoading } = React.useContext(UserContext);
   const [greeting, setGreeting] = React.useState<string | null>(null);
 
   React.useEffect(() => {
@@ -34,7 +34,7 @@ export default function GreetingMessage() {
 
   return (
     <h1 style={{ textAlign: "center" }}>
-      {greeting ? (
+      {greeting && !isLoading ? (
         `${greeting}, ${getDisplayName(user)} 👋!`
       ) : (
         <SkeletonLoading width="20rem" height="2rem" />
