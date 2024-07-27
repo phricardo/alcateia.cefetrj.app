@@ -50,7 +50,7 @@ export async function GET(request: NextRequest) {
       studentId,
       document: {
         type: "NATURAL_PERSON",
-        documentId,
+        id: documentId,
       },
       ...rest,
     };
