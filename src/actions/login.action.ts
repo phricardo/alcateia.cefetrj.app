@@ -3,53 +3,45 @@
 import { cookies } from "next/headers";
 import { LOGIN_POST } from "@/functions/api";
 import { IAuthenticatedUser } from "@/@types/authUser.type";
+import { IActionResponse } from "@/@types/actionResponse.type";
+import handleActionError from "@/functions/handleActionError";
 
 export default async function LoginAction(
   state: {},
   formData: FormData
-): Promise<{
-  ok: boolean;
-  error: string | null;
-  data: IAuthenticatedUser | null;
-}> {
+): Promise<IActionResponse<IAuthenticatedUser>> {
   const username = formData.get("username") as string | null;
   const password = formData.get("password") as string | null;
 
   try {
-    if (!username || !password) throw new Error("Data Required");
+    if (!username || !password) throw new Error("Usuário ou Senha inválidos.");
+
     const { url, options } = LOGIN_POST({ username, password });
     const response = await fetch(url, options);
 
-    if (!response.ok) throw new Error("Login failed");
+    const json = await response.json();
+    if (!response.ok) throw new Error(json.error);
 
-    const loginJson = await response.json();
-    const studentId = loginJson.student.studentId;
-    const JSESSIONIDSSO = loginJson.cookies.JSESSIONIDSSO.value;
-
-    cookies().set("INTCEFETRJ_STD", studentId, {
+    cookies().set("CEFETID_STD", json.student.studentId, {
       httpOnly: true,
       secure: true,
       path: "/",
-      sameSite: "none",
+      sameSite: "strict",
     });
 
-    cookies().set("INTCEFETRJ__SSO", JSESSIONIDSSO, {
+    cookies().set("CEFETID_SSO", json.cookies.SSO.value, {
       httpOnly: true,
       secure: true,
       path: "/",
-      sameSite: "none",
+      sameSite: "strict",
     });
 
     return {
       ok: true,
       error: null,
-      data: loginJson.student,
+      data: json.student,
     };
   } catch (error: unknown) {
-    return {
-      ok: false,
-      error: "Error occurred.",
-      data: null,
-    };
+    return handleActionError(error);
   }
 }

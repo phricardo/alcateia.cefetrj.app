@@ -28,8 +28,6 @@ export default function LoginPage() {
 
   return (
     <div className={`container ${styles.pageWrapper}`}>
-      <p>{state.data ? JSON.stringify(state.data) : ""}</p>
-
       <h1>Login</h1>
       <p>
         Entre om seu usuário e senha do{" "}
@@ -60,6 +58,8 @@ export default function LoginPage() {
 
         <SubmitButton>Entrar</SubmitButton>
       </form>
+
+      {state.error && <p>{state.error}</p>}
     </div>
   );
 }

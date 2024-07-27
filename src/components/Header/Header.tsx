@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { BackLink } from "../BackLink/BackLink";
 import { UserContext } from "@/contexts/user-context";
 import styles from "./Header.module.css";
+import LogoutButton from "../Button/LogoutButton";
 
 export function Header() {
   const pathname = usePathname();
@@ -30,11 +31,7 @@ export function Header() {
           </div>
         )}
 
-        {!user ? (
-          <Link href="/auth/login">Entrar</Link>
-        ) : (
-          <Link href="/">Sair</Link>
-        )}
+        {!user ? <Link href="/auth/login">Entrar</Link> : <LogoutButton />}
       </div>
     </header>
   );
