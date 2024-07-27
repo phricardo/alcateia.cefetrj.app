@@ -7,10 +7,11 @@ import { BackLink } from "../BackLink/BackLink";
 import { UserContext } from "@/contexts/user-context";
 import styles from "./Header.module.css";
 import LogoutButton from "../Button/LogoutButton";
+import { SkeletonLoading } from "../SkeletonLoading/SkeletonLoading";
 
 export function Header() {
   const pathname = usePathname();
-  const { user } = React.useContext(UserContext);
+  const { user, isLoading } = React.useContext(UserContext);
 
   return (
     <header className={styles.header}>
@@ -31,7 +32,13 @@ export function Header() {
           </div>
         )}
 
-        {!user ? <Link href="/auth/login">Entrar</Link> : <LogoutButton />}
+        {isLoading ? (
+          <SkeletonLoading width="4rem" height="2rem" />
+        ) : !user ? (
+          <Link href="/auth/login">Entrar</Link>
+        ) : (
+          <LogoutButton />
+        )}
       </div>
     </header>
   );

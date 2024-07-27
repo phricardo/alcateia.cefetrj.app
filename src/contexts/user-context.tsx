@@ -25,7 +25,7 @@ export function UserContextProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(true);
   const [user, setUser] = React.useState<IAuthenticatedUser | null>(null);
 
   React.useEffect(() => {
