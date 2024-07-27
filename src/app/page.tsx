@@ -11,10 +11,13 @@ import {
   IdentificationCard,
   ChalkboardSimple,
 } from "@phosphor-icons/react";
-import styles from "./page.module.css";
+import { UserContext } from "@/contexts/user-context";
 import GreetingMessage from "@/components/GreetingMessage/GreetingMessage";
+import styles from "./page.module.css";
 
 export default function IndexPage() {
+  const { user, isLoading } = React.useContext(UserContext);
+
   return (
     <div className={`container ${styles.wrapper}`}>
       <GreetingMessage />
@@ -45,15 +48,18 @@ export default function IndexPage() {
               <span>Eventos</span>
             </Link>
           </li>
-          {/* <li className={styles.linkWrapper}>
-            <Link href="/" className={styles.disable}>
-              <span className={styles.tooltip}>Em breve</span>
-              <div>
-                <IdentificationCard />
-              </div>
-              <span>Minha Carteirinha Digital</span>
-            </Link>
-          </li> */}
+
+          {!isLoading && user && (
+            <li className={styles.linkWrapper}>
+              <Link href="/carteirinha">
+                <div>
+                  <IdentificationCard />
+                </div>
+                <span>Minha Carteirinha Digital</span>
+              </Link>
+            </li>
+          )}
+
           <li className={styles.linkWrapper}>
             <Link
               href="https://alunos.cefet-rj.br/aluno/login.action"
