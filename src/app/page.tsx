@@ -55,7 +55,7 @@ export default function IndexPage() {
                 <div>
                   <IdentificationCard />
                 </div>
-                <span>Minha Carteirinha Digital</span>
+                <span>Minha Carteirinha</span>
               </Link>
             </li>
           )}
