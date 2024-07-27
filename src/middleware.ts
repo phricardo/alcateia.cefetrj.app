@@ -9,8 +9,9 @@ export async function middleware(request: NextRequest) {
 
   const { url, options } = LOGIN_VALIDATE_POST(SSO);
   const response = await fetch(url, options);
+  const { isAuthenticatedUser } = await response.json();
 
-  if (response.status != 200) {
+  if (!isAuthenticatedUser) {
     next.cookies.delete("CEFETID_SSO");
     next.cookies.delete("CEFETID_STD");
     return next;
