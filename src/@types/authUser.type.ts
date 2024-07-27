@@ -1,12 +1,12 @@
 export type IAuthenticatedUser = {
   name: string;
   studentId: string;
-  document: {
+  document?: {
     type: "NATURAL_PERSON";
     id: string;
   };
-  enrollment: string;
-  course: string;
-  currentPeriod: string;
-  enrollmentPeriod: string;
+  enrollment?: string;
+  course?: string;
+  currentPeriod?: string;
+  enrollmentPeriod?: string;
 };

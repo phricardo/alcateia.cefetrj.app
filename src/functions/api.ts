@@ -18,3 +18,28 @@ export function LOGIN_POST({
     },
   };
 }
+
+export function USER_GET() {
+  return {
+    url: `${API_BASE_URL}/api/v1/users`,
+    options: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+    },
+  };
+}
+
+export function LOGIN_VALIDATE_POST(token: string) {
+  return {
+    url: `${API_BASE_URL}/api/v1/login/validate`,
+    options: {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: `CEFETID_SSO=${token}`,
+      },
+    },
+  };
+}

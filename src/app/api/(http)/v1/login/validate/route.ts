@@ -10,11 +10,11 @@ const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
 
 export async function POST(request: NextRequest) {
   try {
-    const JSESSIONIDSSO = request.cookies.get("INTCEFETRJ__SSO");
+    const SSO = request.cookies.get("CEFETID_SSO");
 
     const response = await client.get(`${BASE_URL}/aluno/index.action`, {
       headers: {
-        Cookie: `JSESSIONIDSSO=${JSESSIONIDSSO?.value}`,
+        Cookie: `JSESSIONIDSSO=${SSO?.value}`,
       },
     });
 

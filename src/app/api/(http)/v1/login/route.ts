@@ -1,14 +1,12 @@
 import axios from "axios";
-import cheerio from "cheerio";
 import tough from "tough-cookie";
 import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 import {
   BASE_URL,
   capitalizeName,
-  extractCPF,
   extractPnotifyText,
-  extractStudentInfo,
+  extractUser,
 } from "@/app/api/utils/links.util";
 
 const MAX_RETRIES = 2;
@@ -36,42 +34,19 @@ export async function POST(request: NextRequest) {
       if (pnotifyText) throw new Error(pnotifyText);
 
       const cookies = cookieJar.getCookiesSync(BASE_URL);
-      const jsessionidCookieAfterLogin = cookies.find(
-        (cookie) => cookie.key === "JSESSIONIDSSO"
-      );
+      const SSO = cookies.find((cookie) => cookie.key === "JSESSIONIDSSO");
 
-      if (jsessionidCookieAfterLogin) {
+      if (SSO) {
         const indexResponse = await client.get(
           `${BASE_URL}/aluno/index.action`,
           {
             headers: {
-              Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
+              Cookie: `JSESSIONIDSSO=${SSO.value}`,
             },
           }
         );
 
-        const $ = cheerio.load(indexResponse.data);
-        const name = $("span#menu > button").text().trim();
-        const studentId = $("#matricula").val() as string;
-
-        const [profileResponse, docsResponse] = await Promise.all([
-          client.get(`${BASE_URL}/aluno/aluno/perfil/perfil.action`, {
-            headers: {
-              Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
-            },
-          }),
-          client.get(
-            `${BASE_URL}/aluno/aluno/relatorio/relatorios.action?matricula=${studentId}`,
-            {
-              headers: {
-                Cookie: `JSESSIONIDSSO=${jsessionidCookieAfterLogin.value}`,
-              },
-            }
-          ),
-        ]);
-
-        const documentId = extractCPF(profileResponse.data);
-        const studentData = extractStudentInfo(docsResponse.data);
+        const { name, studentId } = extractUser(indexResponse.data);
 
         return NextResponse.json(
           {
@@ -79,13 +54,8 @@ export async function POST(request: NextRequest) {
             student: {
               name: capitalizeName(name),
               studentId,
-              document: {
-                type: "NATURAL_PERSON",
-                id: documentId,
-              },
-              ...studentData,
             },
-            cookies: { SSO: jsessionidCookieAfterLogin },
+            cookies: { SSO },
           },
           { status: 200 }
         );

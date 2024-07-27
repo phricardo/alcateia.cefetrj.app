@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { USER_GET } from "@/functions/api";
 import { IAuthenticatedUser } from "@/@types/authUser.type";
 
 export type IUserContext = {
@@ -28,17 +29,20 @@ export function UserContextProvider({
   const [user, setUser] = React.useState<IAuthenticatedUser | null>(null);
 
   React.useEffect(() => {
-    if (user) localStorage.setItem("user", JSON.stringify(user));
-  }, [user]);
-
-  React.useEffect(() => {
-    setIsLoading(true);
-    const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      const authUser = JSON.parse(storedUser) as IAuthenticatedUser;
-      setUser(authUser);
-    }
-    setIsLoading(false);
+    const fetchUser = async () => {
+      try {
+        setIsLoading(true);
+        const { url, options } = USER_GET();
+        const response = await fetch(url, options);
+        const json = await response.json();
+        setUser(json.user);
+      } catch (err: unknown) {
+        setUser(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchUser();
   }, []);
 
   return (
