@@ -10,6 +10,7 @@ import styles from "./page.module.css";
 export default function StudentIdCardPage() {
   const router = useRouter();
   const { Canvas } = useQRCode();
+  const currentYear: number = new Date().getFullYear();
   const { user, isLoading } = React.useContext(UserContext);
 
   React.useEffect(() => {
@@ -55,6 +56,9 @@ export default function StudentIdCardPage() {
             </li>
             <li>
               <strong>Ingressou:</strong> {user.enrollmentPeriod}
+            </li>
+            <li>
+              <strong>Validate:</strong> 31/12/{currentYear}
             </li>
           </ul>
 
