@@ -1,30 +1,19 @@
-## ![Cefet/RJ Gateway API](./.github/logo.png "Cefet/RJ Gateway API")
+## ![Integra.Cefet/RJ](./.github/logo.png "Integra.Cefet/RJ")
 
----
-#### `/api/v1/news`
+Integra.Cefet/RJ is an unofficial web application with resources for students of the Centro
+Federal de Educação Tecnológica Celso Suckow da Fonseca (CEFET/RJ).
 
-**Description:**
-Fetch news articles.
+# Stacks / Techs
 
-**Parameters:**
-- `p` (integer): The page number. If not provided, the first page is returned.
-- `q` (string): Search term for filtering news articles.
-- `campus` (string): Filter news articles by campus (unit).
+- Next.js
+- Axios
+- Prisma
+- Cheerio
+- Tough Cookie
+- Phosphor Icons (React)
 
-#### `/api/v1/events`
+## Contributors
 
-**Description:**
-Fetch events.
-
-**Parameters:**
-- `p` (integer): The page number. If not provided, the first page is returned.
-- `q` (string): Search term for filtering news articles.
-- `campus` (string): Filter news articles by campus (unit).
-
-#### `/api/v1/calendars`
-
-**Description:**
-Fetch academic calendars.
-
-**Parameters:**
-- `url` (string): The URL of the news website. **(required)**
+<a href="https://github.com/phricardorj/integra.cefetrj/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=phricardorj/integra.cefetrj&max=500" alt="List of contributors" />
+</a>
