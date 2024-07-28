@@ -33,15 +33,17 @@ export function Header() {
           </div>
         )}
 
-        {isLoading ? (
+        {isLoading && pathname === "/" && (
           <SkeletonLoading width="4rem" height="2rem" />
-        ) : !user && pathname === "/" ? (
+        )}
+
+        {!isLoading && !user && pathname === "/" && (
           <Link href="/auth/login">
             <SignIn /> Entrar
           </Link>
-        ) : (
-          pathname === "/" && <LogoutButton />
         )}
+
+        {!isLoading && user && pathname === "/" && <LogoutButton />}
       </div>
     </header>
   );

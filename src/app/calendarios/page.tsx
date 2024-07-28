@@ -143,8 +143,9 @@ export default function CalendarsPage() {
             <h2>Calendários de Anos Anteriores</h2>
             {calendarData.calendars.previousYears &&
             Object.keys(calendarData.calendars.previousYears).length > 0 ? (
-              Object.entries(calendarData.calendars.previousYears).map(
-                ([year, links], index) => (
+              Object.entries(calendarData.calendars.previousYears)
+                .reverse()
+                .map(([year, links], index) => (
                   <div key={index}>
                     <h3>{year}</h3>
                     <div>
@@ -194,8 +195,7 @@ export default function CalendarsPage() {
                       )}
                     </div>
                   </div>
-                )
-              )
+                ))
             ) : (
               <p>Não há calendários disponíveis para anos anteriores.</p>
             )}
