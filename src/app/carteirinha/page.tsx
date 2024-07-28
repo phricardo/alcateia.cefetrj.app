@@ -58,7 +58,7 @@ export default function StudentIdCardPage() {
             />
             <div>
               <Image
-                src={`/cefetrj.png`}
+                src={`/images/cefetrj.png`}
                 alt={`Foto de ${user?.name}`}
                 height={50}
                 width={201}

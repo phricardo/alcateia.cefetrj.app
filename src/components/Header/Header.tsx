@@ -8,6 +8,7 @@ import { UserContext } from "@/contexts/user-context";
 import LogoutButton from "../Button/LogoutButton";
 import { SkeletonLoading } from "../SkeletonLoading/SkeletonLoading";
 import { SignIn } from "@phosphor-icons/react";
+import Image from "next/image";
 import styles from "./Header.module.css";
 
 export function Header() {
@@ -17,9 +18,14 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <div>
+        <div className={styles.brand}>
           <Link href="/">
-            <h1 className={styles.logo}>Integra.Cefet/RJ</h1>
+            <Image
+              src="/images/logo.png"
+              height={45}
+              width={237}
+              alt="Integra.Cefet/RJ"
+            />
           </Link>
         </div>
 
