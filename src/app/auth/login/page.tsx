@@ -29,7 +29,7 @@ export default function LoginPage() {
     <div className={`container ${styles.pageWrapper}`}>
       <h1>Login</h1>
       <p>
-        Entre om seu usuário e senha do{" "}
+        Entre com seu usuário e senha do {" "}
         <Link href="https://alunos.cefet-rj.br" target="_blank">
           Portal do Aluno
         </Link>
