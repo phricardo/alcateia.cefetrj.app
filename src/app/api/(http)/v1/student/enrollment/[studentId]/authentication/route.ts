@@ -17,6 +17,7 @@ export async function GET(
 ) {
   try {
     const { studentId } = context.params;
+    if (!studentId) throw new Error("studentId not found");
 
     const token = request.cookies.get("CEFETID_SSO");
     if (!token) throw new Error("CEFETID_SSO Cookie not found");
