@@ -43,3 +43,15 @@ export function LOGIN_VALIDATE_POST(token: string) {
     },
   };
 }
+
+export function STUDENT_CARD_VALIDATE_GET(studentId: string) {
+  return {
+    url: `${API_BASE_URL}/v1/student/enrollment/${studentId}/authentication`,
+    options: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+    },
+  };
+}

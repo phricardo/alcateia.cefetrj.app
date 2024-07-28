@@ -10,3 +10,10 @@ export type IAuthenticatedUser = {
   currentPeriod?: string;
   enrollmentPeriod?: string;
 };
+
+export type IEnrollmentValidationData = {
+  student: {
+    code: string;
+    url: string;
+  };
+};
