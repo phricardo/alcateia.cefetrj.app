@@ -4,6 +4,7 @@ import React from "react";
 import { useFormState } from "react-dom";
 import LogoutAction from "@/actions/logout.action";
 import { UserContext } from "@/contexts/user-context";
+import { SignOut } from "@phosphor-icons/react";
 import SubmitButton from "./SubmitButton";
 
 export default function LogoutButton() {
@@ -24,7 +25,9 @@ export default function LogoutButton() {
 
   return (
     <form action={action}>
-      <SubmitButton>Sair</SubmitButton>
+      <SubmitButton>
+        <SignOut /> Sair
+      </SubmitButton>
     </form>
   );
 }

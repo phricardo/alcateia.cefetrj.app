@@ -5,9 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BackLink } from "../BackLink/BackLink";
 import { UserContext } from "@/contexts/user-context";
-import styles from "./Header.module.css";
 import LogoutButton from "../Button/LogoutButton";
 import { SkeletonLoading } from "../SkeletonLoading/SkeletonLoading";
+import { SignIn } from "@phosphor-icons/react";
+import styles from "./Header.module.css";
 
 export function Header() {
   const pathname = usePathname();
@@ -34,10 +35,12 @@ export function Header() {
 
         {isLoading ? (
           <SkeletonLoading width="4rem" height="2rem" />
-        ) : !user ? (
-          <Link href="/auth/login">Entrar</Link>
+        ) : !user && pathname === "/" ? (
+          <Link href="/auth/login">
+            <SignIn /> Entrar
+          </Link>
         ) : (
-          <LogoutButton />
+          pathname === "/" && <LogoutButton />
         )}
       </div>
     </header>

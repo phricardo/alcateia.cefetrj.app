@@ -56,3 +56,13 @@
   background: transparent;
   font-weight: 600;
 }
+
+.header a,
+.header button {
+  background: transparent;
+  display: inline-flex;
+  gap: 0.4rem;
+  font-size: 1.2rem;
+  font-weight: 400;
+  text-decoration: none;
+}

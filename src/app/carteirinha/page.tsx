@@ -29,26 +29,33 @@ export default function StudentIdCardPage() {
         <div className={styles.card}>
           <div className={styles.cardHeader}>
             <Image
-              src={`/cefetrj.png`}
-              alt={`Foto de ${user?.name}`}
-              height={50}
-              width={201}
-            />
-
-            <Image
               src={`https://ui-avatars.com/api/?size=120&background=dddddd&color=000000&name=${user?.name}`}
               alt={`Foto de ${user?.name}`}
               height={150}
               width={150}
             />
-            <h1>{user.name}</h1>
-            <p>{user.course}</p>
-            <p>Período Atual: {user.currentPeriod}º período</p>
+            <div>
+              <Image
+                src={`/cefetrj.png`}
+                alt={`Foto de ${user?.name}`}
+                height={50}
+                width={201}
+              />
+              <h1>{user.name}</h1>
+              <p>{user.course}</p>
+            </div>
           </div>
 
           <ul className={styles.cardDetails}>
-            <li>CPF: {user.document?.id}</li>
-            <li>Periodo de Mtricula: {user.enrollmentPeriod}</li>
+            <li>
+              <strong>CPF:</strong> {user.document?.id}
+            </li>
+            <li>
+              <strong>Matrícula:</strong> {user.enrollment}
+            </li>
+            <li>
+              <strong>Ingressou:</strong> {user.enrollmentPeriod}
+            </li>
           </ul>
 
           <Canvas
@@ -57,7 +64,7 @@ export default function StudentIdCardPage() {
               errorCorrectionLevel: "M",
               margin: 0,
               scale: 4,
-              width: 150,
+              width: 250,
               color: {
                 dark: "#000000",
                 light: "#FFFFFF",
