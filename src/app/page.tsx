@@ -51,7 +51,7 @@ export default function IndexPage() {
 
           {!isLoading && user && (
             <li className={styles.linkWrapper}>
-              <Link href="/carteirinha">
+              <Link href="/aluno/carteirinha">
                 <div>
                   <IdentificationCard />
                 </div>

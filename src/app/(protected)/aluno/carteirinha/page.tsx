@@ -5,9 +5,9 @@ import Image from "next/image";
 import { useQRCode } from "next-qrcode";
 import { UserContext } from "@/contexts/user-context";
 import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
-import styles from "./page.module.css";
 import { STUDENT_CARD_VALIDATE_GET } from "@/functions/api";
 import { IEnrollmentValidationData } from "@/@types/authUser.type";
+import styles from "./page.module.css";
 
 export default function StudentIdCardPage() {
   const { Canvas } = useQRCode();
@@ -16,11 +16,6 @@ export default function StudentIdCardPage() {
   const [data, setData] = React.useState<IEnrollmentValidationData | null>(
     null
   );
-
-  React.useEffect(() => {
-    const domLoaded = typeof window !== "undefined";
-    if (!isLoading && domLoaded && !user) window.location.href = "/";
-  }, [isLoading, user]);
 
   React.useEffect(() => {
     const fetchData = async () => {
@@ -41,7 +36,7 @@ export default function StudentIdCardPage() {
   if ((!user && isLoading) || !data)
     return (
       <div className={`${styles.pageWrapper} container`}>
-        <SkeletonLoading width="40rem" height="60vh" />
+        <SkeletonLoading width="100%" height="60vh" />
       </div>
     );
 

@@ -3,12 +3,12 @@
 import React from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
-import LoginAction from "../../../actions/login.action";
 import SubmitButton from "@/components/Button/SubmitButton";
 import { UserContext } from "@/contexts/user-context";
 import { Lock } from "@phosphor-icons/react";
 import styles from "./LoginPage.module.css";
 import PasswordInput from "@/components/PasswordInput/PasswordInput";
+import LoginAction from "@/actions/login.action";
 
 export default function LoginPage() {
   const { setUser, user } = React.useContext(UserContext);
@@ -46,12 +46,13 @@ export default function LoginPage() {
               name="username"
               id="username"
               placeholder="Usuário"
+              required
             />
           </label>
 
           <label htmlFor="password">
             Senha:
-            <PasswordInput name="password" id="password" />
+            <PasswordInput name="password" id="password" required />
           </label>
 
           <p>
