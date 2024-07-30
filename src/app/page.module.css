@@ -53,6 +53,7 @@
 
 .links ul li a:hover,
 .links ul li a:focus {
+  color: #00407a;
   border-color: #00407a;
 }
 

@@ -22,8 +22,8 @@ export function Header() {
           <Link href="/">
             <Image
               src="/images/logo.png"
-              height={45}
-              width={237}
+              height={35}
+              width={184}
               alt="Integra.Cefet/RJ"
             />
           </Link>
