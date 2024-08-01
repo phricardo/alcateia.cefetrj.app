@@ -71,7 +71,7 @@ export default function StudentIdCardPage() {
               <strong>Matrícula:</strong> {user.enrollment}
             </li>
             <li>
-              <strong>Validate:</strong> 31/12/{currentYear}
+              <strong>Validade:</strong> 31/12/{currentYear}
             </li>
           </ul>
 
