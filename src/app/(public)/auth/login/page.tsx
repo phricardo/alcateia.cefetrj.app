@@ -45,7 +45,6 @@ export default function LoginPage() {
               type="text"
               name="username"
               id="username"
-              placeholder="Usuário"
               required
             />
           </label>
