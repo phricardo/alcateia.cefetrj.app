@@ -75,11 +75,12 @@ export default function NewsPage() {
         setLoading(true);
         const response = await fetch("/api/v1/news/rss/sync");
         if (!response.ok) throw new Error("Network response was not ok");
+        await fetchData();
         console.log("Ok! Synced with RSS feed");
       } catch (error: unknown) {
         console.error("Failed to sync RSS feed:", error);
       } finally {
-        fetchData();
+        setLoading(false);
       }
     };
     syncRSSFeed();
