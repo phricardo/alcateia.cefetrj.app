@@ -33,6 +33,7 @@ export async function GET(request: NextRequest) {
     const totalNews = await prisma.news.count({
       where: whereClause,
     });
+
     const totalPages = Math.ceil(totalNews / pageSize);
 
     const news = await prisma.news.findMany({

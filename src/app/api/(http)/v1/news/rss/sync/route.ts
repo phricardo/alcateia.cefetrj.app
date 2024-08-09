@@ -26,7 +26,7 @@ interface RSSItem {
 const logger = new Logger();
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest, response: NextResponse) {
+export async function GET(request: NextRequest) {
   const feeds = [
     "https://www.cefet-rj.br/index.php/noticias?format=feed&type=rss",
     "https://www.cefet-rj.br/index.php/noticias-campus-maracana?format=feed&type=rss",
@@ -40,69 +40,85 @@ export async function GET(request: NextRequest, response: NextResponse) {
   ];
 
   let shownGuids: string[] = [];
+  let newItemsList: RSSItem[] = [];
 
   try {
     const feedPromises = feeds.map(async (RSS_URL) => {
-      const response = await axios.get(RSS_URL, {
-        headers: {
-          "Cache-Control": "no-cache",
-          Pragma: "no-cache",
-          Expires: "0",
-        },
-      });
+      try {
+        const response = await axios.get(RSS_URL, {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+        });
 
-      const data = (await parseStringPromise(response.data)) as RSSFeedRequest;
+        const data = (await parseStringPromise(
+          response.data
+        )) as RSSFeedRequest;
 
-      const { campus, isAllCampusNews } = determineCampusFromURL(RSS_URL);
+        const { campus, isAllCampusNews } = determineCampusFromURL(RSS_URL);
 
-      const newItems = data.rss.channel[0].item.filter(
-        (item) => !shownGuids.includes(item.guid[0]["_"])
-      );
+        const newItems = data.rss.channel[0].item.filter(
+          (item) => !shownGuids.includes(item.guid[0]["_"])
+        );
 
-      const formatteddata = newItems.map((item) => ({
-        title: String(item.title),
-        link: item.link,
-        description: parseDescription(item.description),
-        guid: item.guid[0]["_"],
-        pubDate: item.pubDate,
-      }));
+        const formattedData = newItems.map((item) => ({
+          title: String(item.title),
+          link: item.link,
+          description: parseDescription(item.description),
+          guid: item.guid[0]["_"],
+          pubDate: item.pubDate,
+        }));
 
-      shownGuids = [
-        ...shownGuids,
-        ...newItems.map((item) => item.guid[0]["_"]),
-      ];
+        shownGuids = [
+          ...shownGuids,
+          ...newItems.map((item) => item.guid[0]["_"]),
+        ];
 
-      await Promise.all(
-        formatteddata.map(async (data) => {
-          const existingItem = await prisma.news.findUnique({
-            where: {
-              guid: data.guid,
-            },
-          });
-
-          if (!existingItem) {
-            await prisma.news.create({
-              data: {
+        await Promise.all(
+          formattedData.map(async (data) => {
+            const existingItem = await prisma.news.findUnique({
+              where: {
                 guid: data.guid,
-                title: data.title,
-                description: data.description,
-                channel: ChannelPublished.PORTAL_CEFETRJ,
-                campus: campus,
-                isAllCampusNews: isAllCampusNews,
-                pubDate: new Date(data.pubDate),
               },
             });
-          }
-        })
-      );
+
+            if (!existingItem) {
+              await prisma.news.create({
+                data: {
+                  guid: data.guid,
+                  title: data.title,
+                  description: data.description,
+                  channel: ChannelPublished.PORTAL_CEFETRJ,
+                  campus: campus,
+                  isAllCampusNews: isAllCampusNews,
+                  pubDate: new Date(data.pubDate),
+                },
+              });
+
+              newItemsList.push(data);
+            }
+          })
+        );
+      } catch (error) {
+        logger.error(`Erro ao processar o feed RSS: ${RSS_URL}`, error);
+      }
     });
 
     await Promise.all(feedPromises);
 
-    return NextResponse.json(
-      { message: "RSS fetch successful" },
-      { status: 200 }
-    );
+    if (newItemsList.length > 0) {
+      return NextResponse.json(
+        { message: "New items found", newItems: newItemsList },
+        { status: 200 }
+      );
+    } else {
+      return NextResponse.json(
+        { message: "No new items found" },
+        { status: 200 }
+      );
+    }
   } catch (error: unknown) {
     logger.error("Error fetching or processing RSS feed", error);
 
