@@ -8,7 +8,6 @@ const redirectToLogin = (request: NextRequest): NextResponse => {
 
 const clearAuthCookies = (response: NextResponse): NextResponse => {
   response.cookies.delete("CEFETID_SSO");
-  response.cookies.delete("CEFETID_STD");
   return response;
 };
 

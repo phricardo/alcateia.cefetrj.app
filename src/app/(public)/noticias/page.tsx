@@ -59,7 +59,7 @@ export default function NewsPage() {
     try {
       setLoading(true);
       const url = buildURL();
-      const response = await fetch(url, { next: { revalidate: 0 } });
+      const response = await fetch(url, { cache: "no-store" });
       const data = await handleFetchResponse(response);
       setData(data);
     } catch (error: unknown) {
@@ -72,18 +72,22 @@ export default function NewsPage() {
   useEffect(() => {
     const syncRSSFeed = async () => {
       try {
-        setLoading(true);
         const response = await fetch("/api/v1/news/rss/sync");
         if (!response.ok) throw new Error("Network response was not ok");
-        await fetchData();
         console.log("Ok! Synced with RSS feed");
       } catch (error: unknown) {
         console.error("Failed to sync RSS feed:", error);
-      } finally {
-        setLoading(false);
       }
     };
-    syncRSSFeed();
+
+    const fetchDataWithSync = async () => {
+      setLoading(true);
+      await syncRSSFeed();
+      await fetchData();
+      setLoading(false);
+    };
+
+    fetchDataWithSync();
   }, []);
 
   useEffect(() => {

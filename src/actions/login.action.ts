@@ -22,13 +22,6 @@ export default async function LoginAction(
     const json = await response.json();
     if (!response.ok) throw new Error(json.error);
 
-    cookies().set("CEFETID_STD", json.student.studentId, {
-      httpOnly: true,
-      secure: true,
-      path: "/",
-      sameSite: "strict",
-    });
-
     cookies().set("CEFETID_SSO", json.cookies.SSO.value, {
       httpOnly: true,
       secure: true,
