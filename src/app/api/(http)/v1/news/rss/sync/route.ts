@@ -76,33 +76,44 @@ export async function GET(request: NextRequest) {
           ...newItems.map((item) => item.guid[0]["_"]),
         ];
 
+        logger.info(
+          `Processing ${formattedData.length} new items from ${RSS_URL}`
+        );
+
         await Promise.all(
           formattedData.map(async (data) => {
-            const existingItem = await prisma.news.findUnique({
-              where: {
-                guid: data.guid,
-              },
-            });
-
-            if (!existingItem) {
-              await prisma.news.create({
-                data: {
+            try {
+              const existingItem = await prisma.news.findUnique({
+                where: {
                   guid: data.guid,
-                  title: data.title,
-                  description: data.description,
-                  channel: ChannelPublished.PORTAL_CEFETRJ,
-                  campus: campus,
-                  isAllCampusNews: isAllCampusNews,
-                  pubDate: new Date(data.pubDate),
                 },
               });
 
-              newItemsList.push(data);
+              if (!existingItem) {
+                logger.info(`Saving new item with GUID: ${data.guid}`);
+                await prisma.news.create({
+                  data: {
+                    guid: data.guid,
+                    title: data.title,
+                    description: data.description,
+                    channel: ChannelPublished.PORTAL_CEFETRJ,
+                    campus: campus,
+                    isAllCampusNews: isAllCampusNews,
+                    pubDate: new Date(data.pubDate),
+                  },
+                });
+
+                newItemsList.push(data);
+              } else {
+                logger.info(`Item with GUID: ${data.guid} already exists`);
+              }
+            } catch (error) {
+              logger.error(`Error saving item with GUID: ${data.guid}`, error);
             }
           })
         );
       } catch (error) {
-        logger.error(`Erro ao processar o feed RSS: ${RSS_URL}`, error);
+        logger.error(`Error processing feed RSS: ${RSS_URL}`, error);
       }
     });
 
