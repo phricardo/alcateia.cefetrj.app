@@ -1,12 +1,13 @@
 "use client";
 
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import React, { useState, useEffect, useRef } from "react";
-import { NewsResponse } from "@/@types/newsResponse.type";
-import { campusDisplayNames } from "@/utils/constants.util";
+
+import { FunnelSimple } from "@phosphor-icons/react";
 import { formatDate } from "@/utils/formatarData.util";
-import { FunnelSimple, MagnifyingGlass } from "@phosphor-icons/react";
+import { campusDisplayNames } from "@/utils/constants.util";
 import CopyButton from "@/components/CopyButton/CopyButton";
+import { NewsResponse, NewsItem } from "@/@types/newsResponse.type";
 import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
 import styles from "./page.module.css";
 
@@ -20,15 +21,11 @@ export default function NewsPage() {
   const [error, setError] = useState<ErrorPayload | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [data, setData] = useState<NewsResponse | null>(null);
-
-  const searchQueryRef = useRef<string>("");
-  const selectedCampusRef = useRef<string | null>(null);
+  const [selectedCampus, setSelectedCampus] = useState<string | null>(null);
 
   const buildURL = (): string => {
     let url = `/api/v1/news?page=${currentPage}`;
-    if (selectedCampusRef.current)
-      url += `&campus=${selectedCampusRef.current}`;
-    if (searchQueryRef.current) url += `&q=${searchQueryRef.current}`;
+    if (selectedCampus) url += `&campus=${selectedCampus}`;
     return url;
   };
 
@@ -70,29 +67,8 @@ export default function NewsPage() {
   };
 
   useEffect(() => {
-    const syncRSSFeed = async () => {
-      try {
-        const response = await fetch("/api/v1/news/rss/sync");
-        if (!response.ok) throw new Error("Network response was not ok");
-        console.log("Ok! Synced with RSS feed");
-      } catch (error: unknown) {
-        console.error("Failed to sync RSS feed:", error);
-      }
-    };
-
-    const fetchDataWithSync = async () => {
-      setLoading(true);
-      await syncRSSFeed();
-      await fetchData();
-      setLoading(false);
-    };
-
-    fetchDataWithSync();
-  }, []);
-
-  useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, selectedCampus]);
 
   useEffect(() => {
     if (error && !error.isSearchError) setData(null);
@@ -100,55 +76,31 @@ export default function NewsPage() {
 
   const handleCampusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setError(null);
-    selectedCampusRef.current = event.target.value;
-    fetchData();
+    setSelectedCampus(event.target.value);
+    setCurrentPage(1);
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setError(null);
-    searchQueryRef.current = event.target.value;
-    fetchData();
+  const handlePageChange = (newPage: number) => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+
+    setTimeout(() => {
+      setCurrentPage(newPage);
+    }, 500);
   };
-
-  if (loading && !data) {
-    return (
-      <div className="container">
-        <div className={styles.skeletonWrapper}>
-          <SkeletonLoading height="50px" width="100%" marginBottom="0.5rem" />
-          {Array.from({ length: 5 }).map((_, index) => (
-            <SkeletonLoading key={index} height="150px" width="100%" />
-          ))}
-        </div>
-      </div>
-    );
-  }
-
-  if (!data) return <p>Nenhum dado encontrado.</p>;
 
   return (
     <div className={`container ${styles.feed}`}>
       <div className={styles.options}>
-        <div className={styles.option}>
-          <label htmlFor="search">
-            <MagnifyingGlass color="#000000" size={22} /> Pesquisar:
-          </label>
-          <input
-            type="text"
-            id="search"
-            defaultValue={searchQueryRef.current}
-            onChange={handleSearchChange}
-            placeholder="Digite sua pesquisa..."
-          />
-          <p>{error && error.isSearchError && error.message}</p>
-        </div>
-
         <div className={styles.option}>
           <label htmlFor="selectCampus">
             <FunnelSimple color="#000000" size={22} /> Filtrar por Unidade:
           </label>
           <select
             id="selectCampus"
-            defaultValue={selectedCampusRef.current || ""}
+            value={selectedCampus || ""}
             onChange={handleCampusChange}
           >
             <option value="">Todas as Unidades</option>
@@ -162,56 +114,70 @@ export default function NewsPage() {
       </div>
 
       <div className={styles.newsWrapper}>
-        {data.news.map((item) => (
-          <div key={item.guid} className={styles.newsItem}>
-            <div className={styles.newsItemHeader}>
-              <div className={styles.newsItemDetails}>
-                <span>{formatDate(item.pubDate)}</span>
-                {item.isAllCampusNews ? (
-                  <span>Geral</span>
-                ) : (
-                  <span>Uned {campusDisplayNames[item.campus]}</span>
-                )}
-              </div>
-              <div>
-                <CopyButton
-                  className={styles.copyLink}
-                  valueToCopy={item.guid}
-                  buttonText="Copiar Link"
-                />
-              </div>
-            </div>
-            <Link href={item.guid} target="_blank">
-              <h1>{item.title}</h1>
-            </Link>
-            <p>{item.description}</p>
-            <Link href={item.guid} target="_blank">
-              Ler Mais
-            </Link>
+        {loading ? (
+          <div className={styles.skeletonWrapper}>
+            {Array.from({ length: 5 }).map((_, index) => (
+              <SkeletonLoading key={index} height="150px" width="100%" />
+            ))}
           </div>
-        ))}
+        ) : !data ? (
+          <p>Nenhum conteúdo encontrado.</p>
+        ) : (
+          data.items.map((item: NewsItem) => (
+            <div key={item.guid} className={styles.newsItem}>
+              <div className={styles.newsItemHeader}>
+                <div className={styles.newsItemDetails}>
+                  <span>{formatDate(item.pubDate)}</span>
+                  {item.isEveryone ? (
+                    <span>Geral</span>
+                  ) : (
+                    <span>
+                      {item.campus && `Uned ${campusDisplayNames[item.campus]}`}
+                    </span>
+                  )}
+                </div>
+                <div>
+                  <CopyButton
+                    className={styles.copyLink}
+                    valueToCopy={item.guid}
+                    buttonText="Copiar Link"
+                  />
+                </div>
+              </div>
+              <Link href={item.link} target="_blank">
+                <h1>{item.title}</h1>
+              </Link>
+              <p>{item.description}</p>
+              <Link href={item.link} target="_blank">
+                Ler Mais
+              </Link>
+            </div>
+          ))
+        )}
       </div>
 
-      <div className={styles.pagination}>
-        <p>
-          Página {data.pagination.page} de {data.pagination.totalPages}
-        </p>
+      {data && (
+        <div className={styles.pagination}>
+          <p>
+            Página {data.pagination.page} de {data.pagination.totalPages}
+          </p>
 
-        <div className={styles.pageNav}>
-          <button
-            onClick={() => setCurrentPage(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={() => setCurrentPage(currentPage + 1)}
-            disabled={currentPage === data.pagination.totalPages}
-          >
-            Próximo
-          </button>
+          <div className={styles.pageNav}>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === data.pagination.totalPages}
+            >
+              Próximo
+            </button>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

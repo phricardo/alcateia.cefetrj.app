@@ -3,10 +3,9 @@ interface EventsItem {
   title: string;
   description: string;
   pubDate: string;
-  channel: string;
   campus: string;
-  isAllCampusEvent: boolean;
-  thumbnail: string | null;
+  isEveryone: boolean;
+  imageUrl: string | null;
 }
 
 interface Pagination {
@@ -17,6 +16,6 @@ interface Pagination {
 }
 
 export interface EventsResponse {
-  events: EventsItem[];
+  items: EventsItem[];
   pagination: Pagination;
 }

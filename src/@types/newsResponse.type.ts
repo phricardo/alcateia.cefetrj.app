@@ -1,21 +1,21 @@
-interface NewsItem {
-  guid: string;
+export interface NewsItem {
   title: string;
+  link: string;
   description: string;
+  guid: string;
   pubDate: string;
-  channel: string;
-  campus: string;
-  isAllCampusNews: boolean;
+  campus: string | null;
+  isEveryone: boolean;
 }
 
-interface Pagination {
+export interface Pagination {
   page: number;
-  totalPages: number;
   pageSize: number;
   totalItems: number;
+  totalPages: number;
 }
 
 export interface NewsResponse {
-  news: NewsItem[];
+  items: NewsItem[];
   pagination: Pagination;
 }

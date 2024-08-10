@@ -106,3 +106,30 @@ export function extractPnotifyText(html: string): string | null {
 
   return pnotifyMatch ? pnotifyMatch[1] : null;
 }
+
+export function determineCampusFromURL(url: string): {
+  campus: string | null;
+  isEveryone: boolean;
+} {
+  if (url.includes("campus-maracana")) {
+    return { campus: "MARACANA", isEveryone: false };
+  } else if (url.includes("campus-angra-dos-reis")) {
+    return { campus: "ANGRA_DOS_REIS", isEveryone: false };
+  } else if (url.includes("campus-itaguai")) {
+    return { campus: "ITAGUAI", isEveryone: false };
+  } else if (url.includes("campus-maria-da-graca")) {
+    return { campus: "MARIA_DA_GRACA", isEveryone: false };
+  } else if (url.includes("campus-nova-friburgo")) {
+    return { campus: "NOVA_FRIBURGO", isEveryone: false };
+  } else if (url.includes("campus-nova-iguacu")) {
+    return { campus: "NOVA_IGUACU", isEveryone: false };
+  } else if (url.includes("campus-petropolis")) {
+    return { campus: "PETROPOLIS", isEveryone: false };
+  } else if (url.includes("campus-valenca")) {
+    return { campus: "VALENCA", isEveryone: false };
+  } else if (url.includes("noticias?format=feed&type=rss")) {
+    return { campus: null, isEveryone: true };
+  } else {
+    throw new Error("Unknown campus in RSS URL");
+  }
+}

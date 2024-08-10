@@ -108,13 +108,12 @@ form input {
   font-size: 1rem;
   border: 0.1rem solid #a09898;
   color: #000000;
-  height: 30px;
+  height: 3rem;
   overflow: hidden;
   outline: none;
-  padding: 1.5rem 0.65rem;
+  padding: 0 0.65rem;
   background: #e1dbdb;
   border-radius: 0.4rem;
-  height: 3rem;
 }
 form input:hover,
 form input:focus {

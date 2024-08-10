@@ -7,7 +7,6 @@ Federal de Educação Tecnológica Celso Suckow da Fonseca (CEFET/RJ).
 
 - Next.js
 - Axios
-- Prisma
 - Cheerio
 - Tough Cookie
 - Phosphor Icons (React)
