@@ -1,5 +1,6 @@
 interface EventsItem {
   guid: string;
+  link: string;
   title: string;
   description: string;
   pubDate: string;

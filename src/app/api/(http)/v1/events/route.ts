@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
 
         const formattedData = newItems.map((item) => ({
           title: String(item.title),
-          link: item.link,
+          link: item.link[0],
           description: parseDescription(item.description),
           guid: item.guid[0]["_"],
           pubDate: item.pubDate,

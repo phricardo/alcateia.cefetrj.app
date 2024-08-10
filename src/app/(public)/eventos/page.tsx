@@ -155,11 +155,11 @@ export default function EventsPage() {
                   </div>
                 </div>
 
-                <Link href={item.guid} target="_blank">
+                <Link href={item.link} target="_blank">
                   <h1>{item.title}</h1>
                 </Link>
                 <p>{item.description}</p>
-                <Link href={item.guid} target="_blank">
+                <Link href={item.link} target="_blank">
                   Ler Mais
                 </Link>
               </div>
