@@ -20,8 +20,8 @@ export default function LoginPage() {
 
   React.useEffect(() => {
     const domLoaded = typeof window !== "undefined";
-    if (user && domLoaded) window.location.href = "/";
-  }, [user]);
+    if (state && state.ok && domLoaded) window.location.href = "/";
+  }, [state]);
 
   return (
     <div className={`container ${styles.pageWrapper}`}>
