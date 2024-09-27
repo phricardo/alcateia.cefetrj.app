@@ -19,10 +19,6 @@ export default function LoginPage() {
   });
 
   React.useEffect(() => {
-    if (state.ok) setUser(state.data);
-  }, [state, setUser]);
-
-  React.useEffect(() => {
     const domLoaded = typeof window !== "undefined";
     if (user && domLoaded) window.location.href = "/";
   }, [user]);
