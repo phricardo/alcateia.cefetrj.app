@@ -10,13 +10,9 @@ export default async function LogoutAction(
   formData: FormData
 ): Promise<IActionResponse> {
   try {
-    cookies().delete("CEFETID_STD");
     cookies().delete("CEFETID_SSO");
 
-    const cookiesRemoved =
-      (await isCookiePresent("CEFETID_STD")) &&
-      (await isCookiePresent("CEFETID_SSO"));
-
+    const cookiesRemoved = await isCookiePresent("CEFETID_SSO");
     if (!cookiesRemoved) throw new Error("Unable to log out");
 
     return {
