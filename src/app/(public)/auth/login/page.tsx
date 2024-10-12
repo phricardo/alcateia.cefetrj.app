@@ -4,14 +4,12 @@ import React from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import SubmitButton from "@/components/Button/SubmitButton";
-import { UserContext } from "@/contexts/user-context";
 import { Lock } from "@phosphor-icons/react";
 import styles from "./LoginPage.module.css";
 import PasswordInput from "@/components/PasswordInput/PasswordInput";
 import LoginAction from "@/actions/login.action";
 
 export default function LoginPage() {
-  const { setUser, user } = React.useContext(UserContext);
   const [state, action] = useFormState(LoginAction, {
     ok: false,
     error: null,
