@@ -1,17 +1,19 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
+import { FileArrowDown } from "@phosphor-icons/react";
 import { CalendarResponse } from "@/@types/calendarResponse.type";
+import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
 import {
   campusCalendarsLinks,
   campusDisplayNames,
 } from "@/utils/constants.util";
-import { FileArrowDown } from "@phosphor-icons/react";
 import styles from "./CalendarsPage.module.css";
 
 export default function CalendarsPage() {
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedCampus, setSelectedCampus] = useState<string>("MARACANA");
   const [calendarData, setCalendarData] = useState<CalendarResponse | null>(
@@ -19,16 +21,25 @@ export default function CalendarsPage() {
   );
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const campusParam = params.get("campus");
+    if (campusParam) setSelectedCampus(campusParam.toUpperCase());
+  }, []);
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `/api/v1/calendars?url=${campusCalendarsLinks[selectedCampus]}`
+          `/api/v1/calendars?url=${campusCalendarsLinks[selectedCampus]}`,
+          { next: { revalidate: 0 } }
         );
         const data: CalendarResponse = await response.json();
         setCalendarData(data);
+        router.push(`?campus=${selectedCampus}`);
       } catch (error: unknown) {
         setCalendarData(null);
+        setSelectedCampus("MARACANA");
         console.error("Error fetching calendar data:", error);
       } finally {
         setLoading(false);
@@ -38,7 +49,8 @@ export default function CalendarsPage() {
   }, [selectedCampus]);
 
   const handleCampusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedCampus(event.target.value);
+    const newCampus = event.target.value;
+    setSelectedCampus(newCampus);
   };
 
   if (loading && !calendarData) {
@@ -80,7 +92,7 @@ export default function CalendarsPage() {
           {/* Calendário do Ano Atual */}
           <section className={styles.wrapper}>
             <h2>Calendário do Ano Atual</h2>
-            {calendarData.calendars.currentYear ? (
+            {calendarData?.calendars?.currentYear ? (
               <div>
                 {calendarData.calendars.currentYear.undergraduate && (
                   <>
@@ -116,7 +128,7 @@ export default function CalendarsPage() {
                   </>
                 )}
 
-                {calendarData.calendars.currentYear.others && (
+                {calendarData?.calendars?.currentYear.others && (
                   <>
                     <h4>Outros</h4>
                     <ul>
@@ -141,7 +153,7 @@ export default function CalendarsPage() {
           {/* Calendários de Anos Anteriores */}
           <section className={styles.wrapper}>
             <h2>Calendários de Anos Anteriores</h2>
-            {calendarData.calendars.previousYears &&
+            {calendarData?.calendars?.previousYears &&
             Object.keys(calendarData.calendars.previousYears).length > 0 ? (
               Object.entries(calendarData.calendars.previousYears)
                 .reverse()
