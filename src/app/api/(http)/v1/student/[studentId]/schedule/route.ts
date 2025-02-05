@@ -40,15 +40,16 @@ export async function GET(
     const text = await pdfToText(pdfBuffer);
 
     const scheduleRegex =
-      /(\w+)-feira\s+(\d{2}:\d{2})\s+(\d{2}:\d{2})\s+(\d{4}-\d{2}-\d{2})\s+(\d{4}-\d{2}-\d{2})\s+([A-Z0-9]+)\s*-\s*(.+?)\nLocal:\s*(.+)/g;
+      /(\d+)\s*-\s*(\w+)-feira\s+(\d{2}:\d{2})\s+(\d{2}:\d{2})\s+(\d{4}-\d{2}-\d{2})\s+(\d{4}-\d{2}-\d{2})\s+([A-Z0-9]+)\s*-\s*(.+?)(?=\n\d+\s*-|\n?$)/gs;
 
-    const scheduleSet = new Set();
-    const schedule = [];
+    const scheduleSet = new Set<string>();
+    const schedule: any[] = [];
 
     let match;
     while ((match = scheduleRegex.exec(text)) !== null) {
       const [
         _,
+        courseNumber,
         weekday,
         startTime,
         endTime,
@@ -56,23 +57,28 @@ export async function GET(
         endDate,
         courseCode,
         courseName,
-        location,
       ] = match;
+
+      const scheduleItem = JSON.stringify({
+        courseNumber,
+        weekday,
+        startTime,
+        endTime,
+        startDate,
+        endDate,
+        courseCode,
+        courseName: courseName.trim().split("Local:")[0],
+        location: courseName
+          .trim()
+          .split("Local:")[1]
+          .split("Autenticação:")[0],
+      });
 
       const uniqueKey = `${courseName}-${courseCode}`;
 
       if (!scheduleSet.has(uniqueKey)) {
         scheduleSet.add(uniqueKey);
-        schedule.push({
-          weekday,
-          startTime,
-          endTime,
-          startDate,
-          endDate,
-          courseCode,
-          courseName,
-          location,
-        });
+        schedule.push(JSON.parse(scheduleItem));
       }
     }
 
