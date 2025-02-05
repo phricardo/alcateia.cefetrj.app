@@ -44,12 +44,13 @@ export default function StudentSchedulePage() {
   if (user && !isLoading)
     return (
       <div className={`${styles.pageWrapper} container`}>
-        <h1 className={styles.title}>Meu Horário</h1>
+        <h1 className={styles.title}>Minhas aulas</h1>
         <div className={styles.scheduleList}>
           {schedule.map((item, index) => (
             <div key={index} className={styles.scheduleItem}>
-              <h2 className={styles.courseName}>{item.courseName}</h2>
-              <p className={styles.courseCode}>{item.courseCode}</p>
+              <h2 className={styles.courseName}>
+                {item.courseCode} - {item.courseName}
+              </h2>
               <p>
                 <strong>Dia:</strong> {item.weekday}
               </p>
