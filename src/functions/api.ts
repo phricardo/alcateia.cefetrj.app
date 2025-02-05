@@ -55,3 +55,15 @@ export function STUDENT_CARD_VALIDATE_GET(studentId: string) {
     },
   };
 }
+
+export function STUDENT_SCHEDULE_GET(studentId: string) {
+  return {
+    url: `${API_BASE_URL}/v1/student/${studentId}/schedule`,
+    options: {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+    },
+  };
+}
