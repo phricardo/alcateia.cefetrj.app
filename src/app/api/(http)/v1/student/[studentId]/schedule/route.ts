@@ -40,7 +40,7 @@ export async function GET(
     const text = await pdfToText(pdfBuffer);
 
     const scheduleRegex =
-      /(\d+)\s*-\s*(\w+)-feira\s+(\d{2}:\d{2})\s+(\d{2}:\d{2})\s+(\d{4}-\d{2}-\d{2})\s+(\d{4}-\d{2}-\d{2})\s+([A-Z0-9]+)\s*-\s*(.+?)(?=\n\d+\s*-|\n?$)/gs;
+      /(\d+)\s*-\s*(\w+)-feira\s+(\d{2}:\d{2})\s+(\d{2}:\d{2})\s+(\d{4}-\d{2}-\d{2})\s+(\d{4}-\d{2}-\d{2})\s+([A-Z0-9]+)\s*-\s*([^]*?)(?=\n\d+\s*-|\n?$)/g;
 
     const scheduleSet = new Set<string>();
     const schedule: any[] = [];
