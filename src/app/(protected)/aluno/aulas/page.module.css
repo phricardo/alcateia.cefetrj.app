@@ -1,0 +1,37 @@
+.pageWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  min-height: 100vh;
+}
+
+
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.scheduleItem {
+  background: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.courseName {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.courseCode {
+  font-size: 14px;
+  color: #666;
+}
