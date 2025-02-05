@@ -10,7 +10,6 @@ import {
   Newspaper,
   IdentificationCard,
   ChalkboardSimple,
-  ChalkboardSimple,
 } from "@phosphor-icons/react";
 import { UserContext } from "@/contexts/user-context";
 import GreetingMessage from "@/components/GreetingMessage/GreetingMessage";
