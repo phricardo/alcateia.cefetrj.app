@@ -42,9 +42,10 @@ export async function GET(
     const scheduleRegex =
       /(\w+)-feira\s+(\d{2}:\d{2})\s+(\d{2}:\d{2})\s+(\d{4}-\d{2}-\d{2})\s+(\d{4}-\d{2}-\d{2})\s+([A-Z0-9]+)\s*-\s*(.+?)\nLocal:\s*(.+)/g;
 
+    const scheduleSet = new Set();
     const schedule = [];
-    let match;
 
+    let match;
     while ((match = scheduleRegex.exec(text)) !== null) {
       const [
         _,
@@ -57,16 +58,22 @@ export async function GET(
         courseName,
         location,
       ] = match;
-      schedule.push({
-        weekday,
-        startTime,
-        endTime,
-        startDate,
-        endDate,
-        courseCode,
-        courseName,
-        location,
-      });
+
+      const uniqueKey = `${courseName}-${courseCode}`;
+
+      if (!scheduleSet.has(uniqueKey)) {
+        scheduleSet.add(uniqueKey);
+        schedule.push({
+          weekday,
+          startTime,
+          endTime,
+          startDate,
+          endDate,
+          courseCode,
+          courseName,
+          location,
+        });
+      }
     }
 
     return NextResponse.json({ schedule }, { status: 200 });
@@ -74,9 +81,7 @@ export async function GET(
     return NextResponse.json(
       {
         error:
-          error instanceof Error
-            ? error.message
-            : "Please try again later.",
+          error instanceof Error ? error.message : "Please try again later.",
       },
       { status: 400 }
     );
