@@ -10,7 +10,7 @@ import {
   Newspaper,
   IdentificationCard,
   ChalkboardSimple,
-  Alarm,
+  ChalkboardSimple,
 } from "@phosphor-icons/react";
 import { UserContext } from "@/contexts/user-context";
 import GreetingMessage from "@/components/GreetingMessage/GreetingMessage";
@@ -65,9 +65,9 @@ export default function IndexPage() {
             <li className={styles.linkWrapper}>
               <Link href="/aluno/aulas">
                 <div>
-                  <Alarm />
+                  <ChalkboardSimple />
                 </div>
-                <span>Minhas aulas</span>
+                <span>Minhas Aulas</span>
               </Link>
             </li>
           )}
