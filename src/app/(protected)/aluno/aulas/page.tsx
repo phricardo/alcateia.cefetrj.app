@@ -27,6 +27,7 @@ export default function StudentSchedulePage() {
         const { url, options } = STUDENT_SCHEDULE_GET(user.studentId);
         const response = await fetch(url, options);
         const json: { schedule: ScheduleItem[] } = await response.json();
+        console.log(json);
         setSchedule(json.schedule);
       }
     };

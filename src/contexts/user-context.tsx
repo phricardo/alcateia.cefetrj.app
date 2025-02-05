@@ -36,7 +36,6 @@ export function UserContextProvider({
         const response = await fetch(url, options);
         const json = await response.json();
         setUser(json.user);
-        console.log(json.user);
       } catch (err: unknown) {
         setUser(null);
       } finally {
