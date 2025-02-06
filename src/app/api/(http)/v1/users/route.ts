@@ -10,13 +10,15 @@ import {
   extractUser,
 } from "@/app/api/utils/links.util";
 
-const cookieJar = new tough.CookieJar();
-const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
-
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get("CEFETID_SSO");
     if (!token) throw new Error("CEFETID_SSO Cookie not found");
+
+    const cookieJar = new tough.CookieJar();
+    const client = wrapper(
+      axios.create({ jar: cookieJar, withCredentials: true })
+    );
 
     const indexResponse = await client.get(`${BASE_URL}/aluno/index.action`, {
       headers: {
