@@ -10,12 +10,15 @@ import {
 } from "@/app/api/utils/links.util";
 
 const MAX_RETRIES = 2;
-const cookieJar = new tough.CookieJar();
-const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
 
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
+
+    const cookieJar = new tough.CookieJar();
+    const client = wrapper(
+      axios.create({ jar: cookieJar, withCredentials: true })
+    );
 
     for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
       const response = await client.post(
