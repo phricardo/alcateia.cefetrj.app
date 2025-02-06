@@ -1,7 +1,5 @@
 import axios from "axios";
-import tough from "tough-cookie";
 import { pdfToText } from "pdf-ts";
-import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 
 type ContextParams = {
@@ -19,12 +17,7 @@ export async function GET(
     const token = request.cookies.get("CEFETID_SSO");
     if (!token) throw new Error("CEFETID_SSO Cookie not found");
 
-    const cookieJar = new tough.CookieJar();
-    const client = wrapper(
-      axios.create({ jar: cookieJar, withCredentials: true })
-    );
-
-    const indexResponse = await client.get(
+    const indexResponse = await axios.get(
       `https://alunos.cefet-rj.br/aluno/aluno/relatorio/comprovanteMatricula.action?matricula=${studentId}`,
       {
         headers: {

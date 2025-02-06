@@ -1,6 +1,4 @@
 import axios from "axios";
-import tough from "tough-cookie";
-import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 import {
   BASE_URL,
@@ -15,12 +13,7 @@ export async function GET(request: NextRequest) {
     const token = request.cookies.get("CEFETID_SSO");
     if (!token) throw new Error("CEFETID_SSO Cookie not found");
 
-    const cookieJar = new tough.CookieJar();
-    const client = wrapper(
-      axios.create({ jar: cookieJar, withCredentials: true })
-    );
-
-    const indexResponse = await client.get(`${BASE_URL}/aluno/index.action`, {
+    const indexResponse = await axios.get(`${BASE_URL}/aluno/index.action`, {
       headers: {
         Cookie: `JSESSIONIDSSO=${token.value}`,
       },
@@ -29,12 +22,12 @@ export async function GET(request: NextRequest) {
     const { name, studentId } = extractUser(indexResponse.data);
 
     const [profileResponse, docsResponse] = await Promise.all([
-      client.get(`${BASE_URL}/aluno/aluno/perfil/perfil.action`, {
+      axios.get(`${BASE_URL}/aluno/aluno/perfil/perfil.action`, {
         headers: {
           Cookie: `JSESSIONIDSSO=${token.value}`,
         },
       }),
-      client.get(
+      axios.get(
         `${BASE_URL}/aluno/aluno/relatorio/relatorios.action?matricula=${studentId}`,
         {
           headers: {
