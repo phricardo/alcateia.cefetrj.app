@@ -5,12 +5,14 @@ import { wrapper } from "axios-cookiejar-support";
 import { NextRequest, NextResponse } from "next/server";
 import { BASE_URL } from "@/app/api/utils/links.util";
 
-const cookieJar = new tough.CookieJar();
-const client = wrapper(axios.create({ jar: cookieJar, withCredentials: true }));
-
 export async function POST(request: NextRequest) {
   try {
     const SSO = request.cookies.get("CEFETID_SSO");
+
+    const cookieJar = new tough.CookieJar();
+    const client = wrapper(
+      axios.create({ jar: cookieJar, withCredentials: true })
+    );
 
     const response = await client.get(`${BASE_URL}/aluno/index.action`, {
       headers: {
