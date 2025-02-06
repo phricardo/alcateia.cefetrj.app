@@ -20,21 +20,33 @@ interface ScheduleItem {
 export default function StudentSchedulePage() {
   const { user, isLoading } = React.useContext(UserContext);
   const [schedule, setSchedule] = React.useState<ScheduleItem[]>([]);
+  const [isScheduleLoading, setIsScheduleLoading] =
+    React.useState<boolean>(false);
 
   React.useEffect(() => {
     const fetchData = async () => {
-      if (user && user.studentId) {
-        const { url, options } = STUDENT_SCHEDULE_GET(user.studentId);
-        const response = await fetch(url, options);
-        const json: { schedule: ScheduleItem[] } = await response.json();
-        console.log(json);
-        setSchedule(json.schedule);
+      setIsScheduleLoading(true);
+      try {
+        if (user?.studentId) {
+          const { url, options } = STUDENT_SCHEDULE_GET(user.studentId);
+          const response = await fetch(url, options);
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          const json: { schedule: ScheduleItem[] } = await response.json();
+          setSchedule(json.schedule);
+        }
+      } catch (error) {
+        console.error("Failed to fetch student schedule:", error);
+      } finally {
+        setIsScheduleLoading(false);
       }
     };
+
     fetchData();
   }, [user]);
 
-  if (!user && isLoading)
+  if ((!user && isLoading) || isScheduleLoading)
     return (
       <div className={`${styles.pageWrapper} container`}>
         <SkeletonLoading width="100%" height="60vh" />
