@@ -1,63 +1,86 @@
 .pageWrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1rem;
+  justify-content: center;
+  align-items: start;
+  padding: 2rem;
   min-height: 100vh;
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  background: #eeeeee;
-  padding: 1.5rem 1rem;
-  min-height: 60vh;
-  border-radius: 0.4rem;
+  background: linear-gradient(
+    135deg,
+    #e0f0ff 0%,
+    #bcdffb 25%,
+    #a2c9f2 50%,
+    #8ab7e9 75%,
+    #7aa9e0 100%
+  );
+  border: 2px solid #4a90e2;
+  border-radius: 12px;
+  padding: 2rem;
   width: 100%;
-  max-width: 40rem;
-  gap: 2rem;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  font-family: "Segoe UI", sans-serif;
+  color: #002244;
+  position: relative;
+  overflow: hidden;
 }
 
-.card .cardHeader {
-  padding: 0.5rem;
+.cardHeader {
   display: flex;
+  gap: 1rem;
   align-items: center;
-  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.card .cardHeader > div {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.avatar {
+  border-radius: 8px;
+  /* border: 1px solid #999; */
 }
 
-.card .cardHeader img {
-  border-radius: 0.8rem;
+.logo {
+  margin-bottom: 0.5rem;
+  width: auto;
 }
 
-@media (max-width: 600px) {
-  .card .cardHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  .card .cardHeader h1 {
-    font-size: 1.3rem;
-  }
-  .card .cardHeader p {
-    font-size: 1rem;
-    max-width: 15rem;
-    text-align: start;
-  }
+.cardHeaderText h1 {
+  font-size: 1rem;
+  margin: 0.25rem 0;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.card .cardDetails {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+.cardHeaderText p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #555;
 }
 
-.card canvas {
-  border-radius: 0.4rem;
-  background: #ffffff;
-  padding: 0.4rem;
+.cardDetails {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.cardDetails li {
+  margin-bottom: 0.3rem;
+  font-size: 0.95rem;
+}
+
+.qrCodeSection {
+  text-align: center;
+}
+
+.qrCodeSection canvas {
+  border-radius: 12px;
+  border: 0.25rem solid white;
+  overflow: hidden;
+}
+
+.authCode {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  color: #333;
 }
