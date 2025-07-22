@@ -9,7 +9,7 @@ import { STUDENT_CARD_VALIDATE_GET } from "@/functions/api";
 import { IEnrollmentValidationData } from "@/@types/authUser.type";
 import styles from "./page.module.css";
 
-export function getCampusName(enumValue?: string | null): string {
+function getCampusName(enumValue?: string | null): string {
   if (!enumValue) return "Campus desconhecido";
 
   const map: Record<string, string> = {
