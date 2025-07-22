@@ -1,3 +1,13 @@
+enum Campus {
+  ANGRA_DOS_REIS = "ANGRA_DOS_REIS",
+  ITAGUAI = "ITAGUAI",
+  MARACANA = "MARACANA",
+  MARIA_DA_GRACA = "MARIA_DA_GRACA",
+  NOVA_FRIBURGO = "NOVA_FRIBURGO",
+  NOVA_IGUACU = "NOVA_IGUACU",
+  VALENCA = "VALENCA",
+}
+
 export type IAuthenticatedUser = {
   name: string;
   studentId: string;
@@ -9,6 +19,7 @@ export type IAuthenticatedUser = {
   course?: string;
   currentPeriod?: string;
   enrollmentPeriod?: string;
+  campus?: Campus | null;
 };
 
 export type IEnrollmentValidationData = {

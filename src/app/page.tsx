@@ -6,6 +6,7 @@ import {
   Calendar,
   CalendarStar,
   Student,
+  Database,
   ArrowSquareOut,
   Newspaper,
   IdentificationCard,
@@ -50,31 +51,49 @@ export default function IndexPage() {
           </li>
 
           {!isLoading && user && (
-            <li className={styles.linkWrapper}>
-              <Link href="/aluno/carteirinha">
-                <div>
-                  <IdentificationCard />
-                </div>
-                <span>Minha Carteirinha</span>
-              </Link>
-            </li>
-          )}
+            <>
+              <li className={styles.linkWrapper}>
+                <Link href="/aluno/carteirinha">
+                  <div>
+                    <IdentificationCard />
+                  </div>
+                  <span>Minha Carteirinha</span>
+                </Link>
+              </li>
 
-          {!isLoading && user && (
-            <li className={styles.linkWrapper}>
-              <Link href="/aluno/aulas">
-                <div>
-                  <ChalkboardSimple />
-                </div>
-                <span>Minhas Aulas</span>
-              </Link>
-            </li>
+              <li className={styles.linkWrapper}>
+                <Link href="/aluno/aulas">
+                  <div>
+                    <ChalkboardSimple />
+                  </div>
+                  <span>Minhas Aulas</span>
+                </Link>
+              </li>
+
+              {/* Link condicional para Nova Friburgo */}
+              {user.campus === "NOVA_FRIBURGO" && (
+                <li className={styles.linkWrapper}>
+                  <Link
+                    href="https://cefetdb.rattz.xyz"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div>
+                      {/* Pode usar um ícone que preferir, aqui usei Student */}
+                      <Database />
+                    </div>
+                    <span>Banco de Provas</span>
+                  </Link>
+                </li>
+              )}
+            </>
           )}
 
           <li className={styles.linkWrapper}>
             <Link
               href="https://alunos.cefet-rj.br/aluno/login.action"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <div>
                 <ChalkboardSimple />
@@ -85,7 +104,11 @@ export default function IndexPage() {
             </Link>
           </li>
           <li className={styles.linkWrapper}>
-            <Link href="https://registro.cefet-rj.br/" target="_blank">
+            <Link
+              href="https://registro.cefet-rj.br/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <div>
                 <Student />
               </div>

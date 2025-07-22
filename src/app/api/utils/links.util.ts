@@ -23,6 +23,14 @@ interface StudentInfo {
   enrollmentPeriod: string;
 }
 
+export function extractCampusFromSchedule(pdfText: string): string | null {
+  const cityPattern =
+    /Local:Prédio\s+\w\s+-\s+(Angra dos Reis|Itaguaí|Maria da Graça|Nova Friburgo|Nova Iguaçu|Valença|Maracanã)\s+-/i;
+
+  const match = pdfText.match(cityPattern);
+  return match ? match[1].toUpperCase().replace(/\s+/g, "_") : null;
+}
+
 export const extractStudentInfo = (html: string): StudentInfo => {
   const $ = cheerio.load(html);
 
