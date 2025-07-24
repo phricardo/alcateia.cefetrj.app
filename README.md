@@ -1,8 +1,3 @@
-## ![Integra.Cefet/RJ](./.github/logo.png "Integra.Cefet/RJ")
-
-Integra.Cefet/RJ is an unofficial web application with resources for students of the Centro
-Federal de Educação Tecnológica Celso Suckow da Fonseca (CEFET/RJ).
-
 # Stacks / Techs
 
 - Next.js

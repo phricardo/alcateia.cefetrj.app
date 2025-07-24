@@ -1,11 +1,11 @@
 .wrapper {
   height: 100%;
   display: flex;
-  min-height: 100vh;
-  min-height: 100dvh;
+  /* min-height: 100vh;
+  min-height: 100dvh; */
   align-items: center;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   margin-top: 2rem;
 }
 
@@ -95,4 +95,10 @@
   .links ul li {
     flex: auto;
   }
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: 0 1rem;
 }

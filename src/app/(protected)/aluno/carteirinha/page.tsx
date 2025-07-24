@@ -60,25 +60,16 @@ export default function StudentIdCardPage() {
 
   if ((!user && isLoading) || !data) {
     return (
-      <div className={`${styles.pageWrapper} container`}>
+      <div className={styles.pageWrapper}>
         <SkeletonLoading width="100%" height="60vh" />
       </div>
     );
   }
 
   return (
-    <div className={`${styles.pageWrapper} container`}>
+    <div className={styles.pageWrapper}>
       <div className={styles.card}>
         <div className={styles.cardHeader}>
-          <Image
-            src={`https://ui-avatars.com/api/?size=120&background=dddddd&color=000000&name=${
-              user?.name ?? "Estudante"
-            }`}
-            alt={`Foto de ${user?.name ?? "Estudante"}`}
-            height={100}
-            width={100}
-            className={styles.avatar}
-          />
           <div className={styles.cardHeaderText}>
             <Image
               src={`/images/cefetrj.png`}
@@ -111,20 +102,25 @@ export default function StudentIdCardPage() {
         </ul>
 
         <div className={styles.qrCodeWrapper}>
-          <Canvas
-            text={data.student.url}
-            options={{
-              errorCorrectionLevel: "M",
-              margin: 0,
-              scale: 4,
-              width: 180,
-              color: {
-                dark: "#000000",
-                light: "#FFFFFF",
-              },
-            }}
-          />
-          <p className={styles.authCode}>Autenticação: {data.student.code}</p>
+          <div className={styles.qrCodeSection}>
+            <Canvas
+              text={data.student.url}
+              options={{
+                errorCorrectionLevel: "M",
+                margin: 0,
+                scale: 4,
+                width: 180,
+                color: {
+                  dark: "#000000",
+                  light: "#FFFFFF",
+                },
+              }}
+            />
+          </div>
+          <p className={styles.authCode}>
+            Autenticação:
+            <br /> {data.student.code}
+          </p>
         </div>
       </div>
     </div>

@@ -1,12 +1,11 @@
 import { Metadata } from "next";
 import { type_first } from "@/functions/fonts";
 import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
 import { UserContextProvider } from "@/contexts/user-context";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Integra Cefet/RJ",
+  title: "Alunos Cefet/RJ",
   description: "Integração extraoficial e de código aberto com o Cefet/RJ",
   icons: {
     icon: [
@@ -36,7 +35,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const customFontsVariables = `${type_first.variable}`;
+  const customFontsVariables = `${type_first.variable} `;
 
   return (
     <html lang="pt-BR">
@@ -44,7 +43,6 @@ export default function RootLayout({
         <UserContextProvider>
           <Header />
           {children}
-          <Footer />
         </UserContextProvider>
       </body>
     </html>

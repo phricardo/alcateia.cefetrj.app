@@ -7,42 +7,31 @@
 }
 
 .card {
-  background: linear-gradient(
-    135deg,
-    #e0f0ff 0%,
-    #bcdffb 25%,
-    #a2c9f2 50%,
-    #8ab7e9 75%,
-    #7aa9e0 100%
-  );
-  border: 2px solid #4a90e2;
+  color: #000;
+  background: #f5f2f2;
+
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1rem;
   width: 100%;
-  max-width: 500px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  font-family: "Segoe UI", sans-serif;
-  color: #002244;
+  max-width: 450px;
   position: relative;
   overflow: hidden;
 }
 
 .cardHeader {
-  display: flex;
   gap: 1rem;
-  align-items: center;
-  margin-bottom: 1.5rem;
+  display: flex;
+  margin-bottom: 1rem;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 .avatar {
   border-radius: 8px;
-  /* border: 1px solid #999; */
 }
 
 .logo {
-  margin-bottom: 0.5rem;
-  width: auto;
+  width: auto !important;
 }
 
 .cardHeaderText h1 {
@@ -54,8 +43,8 @@
 
 .cardHeaderText p {
   margin: 0;
-  font-size: 0.95rem;
-  color: #555;
+  font-size: 0.8rem;
+  color: currentColor;
 }
 
 .cardDetails {
@@ -69,18 +58,17 @@
   font-size: 0.95rem;
 }
 
-.qrCodeSection {
+.qrCodeWrapper {
   text-align: center;
 }
 
 .qrCodeSection canvas {
   border-radius: 12px;
-  border: 0.25rem solid white;
   overflow: hidden;
 }
 
 .authCode {
   font-size: 0.9rem;
   margin-top: 0.5rem;
-  color: #333;
+  color: currentColor;
 }
