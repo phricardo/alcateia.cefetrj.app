@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BackLink } from "../BackLink/BackLink";
 import { SignInLink } from "../SignInLink/SignInLink";
+import LogoutButton from "../Button/LogoutButton";
 
 export function Header() {
   const pathname = usePathname();
@@ -71,7 +72,7 @@ export function Header() {
 
             {!isLoading && !user && pathname === "/" && <SignInLink />}
 
-            {!isLoading && user && pathname === "/" && <button>dkkd</button>}
+            {!isLoading && user && pathname === "/" && <LogoutButton />}
           </div>
         </div>
         <div className={styles.hero}>
