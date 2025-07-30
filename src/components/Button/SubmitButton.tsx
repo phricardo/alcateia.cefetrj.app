@@ -17,5 +17,9 @@ export default function SubmitButton({
 }: SubmitButtonProps) {
   const { pending } = useFormStatus();
 
-  return <button>{children}</button>;
+  return (
+    <button {...props} disabled={pending}>
+      {pending ? "Entrando..." : children}
+    </button>
+  );
 }
