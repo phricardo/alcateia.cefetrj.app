@@ -85,12 +85,12 @@ export function Header() {
           </h1>
           <p>
             {!isLoading && user
-              ? `Você está matriculado no campus ${
-                  user.campus
-                    ?.replaceAll("_", " ")
+              ? user.campus
+                ? `Você está matriculado no campus ${user.campus
+                    .replaceAll("_", " ")
                     .toLowerCase()
-                    .replace(/\b\w/g, (l) => l.toUpperCase()) ?? "desconhecido"
-                }.`
+                    .replace(/\b\w/g, (l) => l.toUpperCase())}.`
+                : "Seja bem-vindo(a) à sua conta!"
               : "Faça login para obter mais recursos!"}
           </p>
         </div>
