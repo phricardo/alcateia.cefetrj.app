@@ -11,6 +11,7 @@ import Link from "next/link";
 import { BackLink } from "../BackLink/BackLink";
 import { SignInLink } from "../SignInLink/SignInLink";
 import LogoutButton from "../Button/LogoutButton";
+import { Info } from "@phosphor-icons/react";
 
 export function Header() {
   const pathname = usePathname();
@@ -55,24 +56,30 @@ export function Header() {
             </Link>
           </div>
 
-          <div>
-            {pathname != "/" && (
-              <div>
-                <BackLink
-                  text="Voltar"
-                  className={styles.btnBack}
-                  redirectToHome={true}
-                />
-              </div>
-            )}
+          <div className={styles.group}>
+            <Link href="/sobre">
+              <Info /> Sobre o App
+            </Link>
 
-            {isLoading && pathname === "/" && (
-              <SkeletonLoading width="4rem" height="2rem" />
-            )}
+            <div>
+              {pathname != "/" && (
+                <div>
+                  <BackLink
+                    text="Voltar"
+                    className={styles.btnBack}
+                    redirectToHome={true}
+                  />
+                </div>
+              )}
 
-            {!isLoading && !user && pathname === "/" && <SignInLink />}
+              {isLoading && pathname === "/" && (
+                <SkeletonLoading width="4rem" height="2rem" />
+              )}
 
-            {!isLoading && user && pathname === "/" && <LogoutButton />}
+              {!isLoading && !user && pathname === "/" && <SignInLink />}
+
+              {!isLoading && user && pathname === "/" && <LogoutButton />}
+            </div>
           </div>
         </div>
         <div className={styles.hero}>

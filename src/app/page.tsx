@@ -105,7 +105,7 @@ export default function IndexPage() {
 
   return (
     <div className={styles.indexWrapper}>
-      <AdPlaceholderImage height={100} />
+      <AdPlaceholderImage />
 
       <div className={styles.links}>
         <ul>
