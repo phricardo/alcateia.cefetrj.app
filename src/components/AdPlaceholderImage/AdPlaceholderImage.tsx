@@ -1,38 +1,102 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
+import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 
-type AdPlaceholderImageProps = {
+type AdImageSliderProps = {
   width?: number | string;
-  height?: number;
   borderRadius?: number;
-  text?: string;
 };
 
-export default function AdPlaceholderImage({
+const imageUrls = ["/images/banner.jpeg", "/images/banner_2.jpeg"];
+
+function AutoplayPlugin(slider: any) {
+  let timeout: NodeJS.Timeout;
+  let mouseOver = false;
+
+  function clearNextTimeout() {
+    if (timeout) clearTimeout(timeout);
+  }
+
+  function nextTimeout() {
+    clearNextTimeout();
+    if (mouseOver) return;
+    timeout = setTimeout(() => {
+      slider.next();
+    }, 3000);
+  }
+
+  slider.on("created", () => {
+    slider.container.addEventListener("mouseover", () => {
+      mouseOver = true;
+      clearNextTimeout();
+    });
+    slider.container.addEventListener("mouseout", () => {
+      mouseOver = false;
+      nextTimeout();
+    });
+    nextTimeout();
+  });
+
+  slider.on("dragStarted", clearNextTimeout);
+  slider.on("animationEnded", nextTimeout);
+  slider.on("updated", nextTimeout);
+}
+
+export default function AdImageSlider({
   width = "100%",
-  height = 200,
   borderRadius = 8,
-  text = "Ad Placeholder",
-}: AdPlaceholderImageProps) {
+}: AdImageSliderProps) {
+  const shouldAutoplay = imageUrls.length > 1;
+
+  const [sliderRef] = useKeenSlider(
+    {
+      loop: shouldAutoplay,
+      slides: {
+        origin: "center",
+        perView: 1,
+      },
+      mode: "snap",
+    },
+    shouldAutoplay ? [AutoplayPlugin] : []
+  );
+
   return (
     <div
       style={{
         width,
-        height,
+        height: "150px",
         borderRadius,
+        overflow: "hidden",
+        border: "1px solid #cbd5e0",
         backgroundColor: "#e2e8f0",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        color: "#4a5568",
-        fontWeight: "bold",
-        fontSize: "1rem",
-        textAlign: "center",
-        border: "1px dashed #cbd5e0",
+        position: "relative",
       }}
     >
-      {text}
+      <div
+        ref={sliderRef}
+        className="keen-slider"
+        style={{ height: "150px", width: "100%" }}
+      >
+        {imageUrls.map((url, index) => (
+          <div
+            className="keen-slider__slide"
+            key={index}
+            style={{ position: "relative", height: "150px" }}
+          >
+            <Image
+              src={url}
+              alt={`Slide ${index + 1}`}
+              fill
+              style={{ objectFit: "cover" }}
+              sizes="(max-width: 768px) 100vw, 100vw"
+              priority={index === 0}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
