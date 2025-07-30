@@ -16,8 +16,92 @@ import { UserContext } from "@/contexts/user-context";
 import styles from "./page.module.css";
 import AdPlaceholderImage from "@/components/AdPlaceholderImage/AdPlaceholderImage";
 
+type LinkItem = {
+  label: React.ReactNode;
+  href: string;
+  icon: React.ReactNode;
+  external?: boolean;
+};
+
 export default function IndexPage() {
   const { user, isLoading } = React.useContext(UserContext);
+
+  const commonLinks: LinkItem[] = [
+    {
+      label: "Notícias",
+      href: "/noticias",
+      icon: <Newspaper />,
+    },
+    {
+      label: "Calendário Acadêmico",
+      href: "/calendarios",
+      icon: <Calendar />,
+    },
+    {
+      label: "Eventos",
+      href: "/eventos",
+      icon: <CalendarStar />,
+    },
+  ];
+
+  const privateLinks: LinkItem[] = [
+    {
+      label: "Minha Carteirinha",
+      href: "/aluno/carteirinha",
+      icon: <IdentificationCard />,
+    },
+    {
+      label: "Minhas Aulas",
+      href: "/aluno/aulas",
+      icon: <ChalkboardSimple />,
+    },
+  ];
+
+  const campusSpecificLinks: LinkItem[] =
+    !isLoading && user?.campus === "NOVA_FRIBURGO"
+      ? [
+          {
+            label: (
+              <>
+                Banco de Provas <ArrowSquareOut size={18} color="#000" />
+              </>
+            ),
+            href: "https://cefetdb.rattz.xyz",
+            icon: <Database />,
+            external: true,
+          },
+        ]
+      : [];
+
+  const externalLinks: LinkItem[] = [
+    {
+      label: (
+        <>
+          Portal do Aluno <ArrowSquareOut size={18} color="#000" />
+        </>
+      ),
+      href: "https://alunos.cefet-rj.br/aluno/login.action",
+      icon: <ChalkboardSimple />,
+      external: true,
+    },
+    {
+      label: (
+        <>
+          Registro Cefet/RJ <ArrowSquareOut size={18} />
+        </>
+      ),
+      href: "https://registro.cefet-rj.br/",
+      icon: <Student />,
+      external: true,
+    },
+  ];
+
+  const allLinks: LinkItem[] = [
+    ...commonLinks,
+    ...(!isLoading && user ? privateLinks : []),
+    ...campusSpecificLinks,
+    ...externalLinks,
+  ];
 
   return (
     <div className={styles.indexWrapper}>
@@ -25,99 +109,18 @@ export default function IndexPage() {
 
       <div className={styles.links}>
         <ul>
-          <li className={styles.linkWrapper}>
-            <Link href="/noticias">
-              <div>
-                <Newspaper />
-              </div>
-              <span>Notícias</span>
-            </Link>
-          </li>
-          <li className={styles.linkWrapper}>
-            <Link href="/calendarios">
-              <div>
-                <Calendar />
-              </div>
-              <span>Calendário Acadêmico</span>
-            </Link>
-          </li>
-          <li className={styles.linkWrapper}>
-            <Link href="/eventos">
-              <div>
-                <CalendarStar />
-              </div>
-              <span>Eventos</span>
-            </Link>
-          </li>
-
-          {!isLoading && user && (
-            <>
-              <li className={styles.linkWrapper}>
-                <Link href="/aluno/carteirinha">
-                  <div>
-                    <IdentificationCard />
-                  </div>
-                  <span>Minha Carteirinha</span>
-                </Link>
-              </li>
-
-              <li className={styles.linkWrapper}>
-                <Link href="/aluno/aulas">
-                  <div>
-                    <ChalkboardSimple />
-                  </div>
-                  <span>Minhas Aulas</span>
-                </Link>
-              </li>
-
-              {user.campus === "NOVA_FRIBURGO" && (
-                <li className={styles.linkWrapper}>
-                  <Link
-                    href="https://cefetdb.rattz.xyz"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div>
-                      <Database />
-                    </div>
-                    <span>
-                      Banco de Provas{" "}
-                      <ArrowSquareOut color="#000000" size={18} />
-                    </span>
-                  </Link>
-                </li>
-              )}
-            </>
-          )}
-
-          <li className={styles.linkWrapper}>
-            <Link
-              href="https://alunos.cefet-rj.br/aluno/login.action"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div>
-                <ChalkboardSimple />
-              </div>
-              <span>
-                Portal do Aluno <ArrowSquareOut color="#000000" size={18} />
-              </span>
-            </Link>
-          </li>
-          <li className={styles.linkWrapper}>
-            <Link
-              href="https://registro.cefet-rj.br/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div>
-                <Student />
-              </div>
-              <span>
-                Registro Cefet/RJ <ArrowSquareOut size={18} />
-              </span>
-            </Link>
-          </li>
+          {allLinks.map(({ label, href, icon, external }, index) => (
+            <li className={styles.linkWrapper} key={index}>
+              <Link
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+              >
+                <div>{icon}</div>
+                <span>{label}</span>
+              </Link>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
