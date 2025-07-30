@@ -42,7 +42,8 @@ ul {
 a {
   cursor: pointer;
   text-decoration: none;
-  color: #9ab118;
+  color: #8ba206;
+  font-weight: 600;
 
   display: inline-flex;
   align-items: center;
