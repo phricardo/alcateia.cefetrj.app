@@ -8,14 +8,13 @@ import { SkeletonLoading } from "../SkeletonLoading/SkeletonLoading";
 import styles from "./Header.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { SignIn } from "@phosphor-icons/react";
 import { BackLink } from "../BackLink/BackLink";
-import LogoutButton from "../Button/LogoutButton";
+import { SignInLink } from "../SignInLink/SignInLink";
 
 export function Header() {
+  const pathname = usePathname();
   const { user, isLoading } = React.useContext(UserContext);
   const [greeting, setGreeting] = React.useState<string | null>(null);
-  const pathname = usePathname();
 
   function getDisplayName(user: IAuthenticatedUser | null): string {
     if (user?.name) {
@@ -42,7 +41,7 @@ export function Header() {
 
   return (
     <header className={styles.header}>
-      <div className={styles.container}>
+      <div className="container">
         <div className={styles.menu}>
           <div>
             <Link href="/">
@@ -70,13 +69,9 @@ export function Header() {
               <SkeletonLoading width="4rem" height="2rem" />
             )}
 
-            {!isLoading && !user && pathname === "/" && (
-              <Link href="/auth/login">
-                <SignIn /> Entrar
-              </Link>
-            )}
+            {!isLoading && !user && pathname === "/" && <SignInLink />}
 
-            {!isLoading && user && pathname === "/" && <LogoutButton />}
+            {!isLoading && user && pathname === "/" && <button>dkkd</button>}
           </div>
         </div>
         <div className={styles.hero}>

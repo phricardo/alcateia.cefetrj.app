@@ -1,8 +1,6 @@
 .header {
   background: #00407a;
   color: #ffffff;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
   overflow: hidden;
 }
 
@@ -30,13 +28,8 @@
   font-size: 1.25rem;
 }
 
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.header a {
-  color: #ffffff !important;
+.header .hero p {
+  font-size: 1rem;
+  font-weight: 200;
+  text-transform: uppercase;
 }

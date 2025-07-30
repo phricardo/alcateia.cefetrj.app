@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { type_first } from "@/functions/fonts";
 import { Header } from "@/components/Header/Header";
+import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "@/contexts/user-context";
 import "./globals.css";
 
@@ -41,8 +42,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={customFontsVariables}>
         <UserContextProvider>
+          <Toaster position="top-center" />
           <Header />
-          {children}
+          <div className={`container`}>{children}</div>
         </UserContextProvider>
       </body>
     </html>

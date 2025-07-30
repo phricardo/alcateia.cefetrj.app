@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { useFormState } from "react-dom";
 import SubmitButton from "@/components/Button/SubmitButton";
-import { Lock } from "@phosphor-icons/react";
 import styles from "./LoginPage.module.css";
 import PasswordInput from "@/components/PasswordInput/PasswordInput";
 import LoginAction from "@/actions/login.action";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [state, action] = useFormState(LoginAction, {
@@ -21,9 +21,15 @@ export default function LoginPage() {
     if (state && state.ok && domLoaded) window.location.href = "/";
   }, [state]);
 
+  React.useEffect(() => {
+    if (state && state.error) {
+      toast.error(state.error);
+    }
+  }, [state]);
+
   return (
-    <div className={`container ${styles.pageWrapper}`}>
-      <div className={styles.loginWrapper}>
+    <div className={styles.loginWrapper}>
+      <div className={styles.header}>
         <h1>Acesso</h1>
         <p>
           Entre com seu usuário e senha do{" "}
@@ -31,44 +37,31 @@ export default function LoginPage() {
             Portal do Aluno
           </Link>
         </p>
-
-        <form action={action}>
-          <label htmlFor="username">
-            Usuário:
-            <input
-              type="text"
-              name="username"
-              id="username"
-              required
-            />
-          </label>
-
-          <label htmlFor="password">
-            Senha:
-            <PasswordInput name="password" id="password" required />
-          </label>
-
-          <p>
-            Esqueceu a senha?{" "}
-            <Link
-              href="https://alunos.cefet-rj.br/usuario/publico/usuario/recuperacaosenha.action"
-              target="_blank"
-            >
-              Recuperar agora.
-            </Link>
-          </p>
-
-          <SubmitButton>Entrar</SubmitButton>
-        </form>
       </div>
 
-      <div className={styles.safe}>
+      <form action={action}>
+        <label htmlFor="username">
+          Usuário:
+          <input type="text" name="username" id="username" required />
+        </label>
+
+        <label htmlFor="password">
+          Senha:
+          <PasswordInput name="password" id="password" required />
+        </label>
+
         <p>
-          <Lock /> Área segura conectada com o Portal do Aluno
+          Esqueceu a senha?{" "}
+          <Link
+            href="https://alunos.cefet-rj.br/usuario/publico/usuario/recuperacaosenha.action"
+            target="_blank"
+          >
+            Recuperar agora.
+          </Link>
         </p>
-      </div>
 
-      {state.error && <p>{state.error}</p>}
+        <SubmitButton>Entrar</SubmitButton>
+      </form>
     </div>
   );
 }

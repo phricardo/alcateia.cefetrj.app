@@ -24,6 +24,7 @@ section {
 body {
   line-height: 1;
   font-size: 1rem;
+  background: #ffffff;
 }
 h1 {
   font-size: 24px;
@@ -40,7 +41,18 @@ ul {
 }
 a {
   cursor: pointer;
-  color: #356ebc;
+  text-decoration: none;
+  color: #9ab118;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+
+  font-size: 1rem;
+}
+a:hover,
+a:focus {
+  color: #ff8408;
 }
 p a {
   display: inline-block;
@@ -63,13 +75,27 @@ button {
   color: #ffffff;
   background: #0f4098;
   border: none;
-  padding: 5px 10px;
-  font-size: 1rem;
   position: relative;
   transition: background-color 0.1s ease;
+  display: flex;
+
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 1rem;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+button svg {
+  height: 1rem;
+  width: 1rem;
+  font-size: 1rem;
 }
 button:hover {
-  background-color: #0f4098;
+  background: #2d5ea3;
 }
 button:disabled,
 button.pending {
@@ -88,10 +114,10 @@ table {
   border-spacing: 0;
 }
 form {
-  margin: 20px 0;
   display: inline-flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 1.5rem;
+  width: 100%;
 }
 form label {
   display: inline-flex;
@@ -143,25 +169,13 @@ form select {
   overflow: hidden;
 }
 form button {
-  margin: 5px 0;
-  font-weight: 600;
+  margin: 1rem 0;
 }
-form button:hover,
-form button:focus {
-  background: #2d5ea3;
-}
-
 form p {
   margin: 0;
 }
-.inline {
-  display: flex;
-  gap: 10px;
-}
-.inline > * {
-  flex: 1;
-}
-a:hover,
-a:focus {
-  color: #3ae13a;
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
 }

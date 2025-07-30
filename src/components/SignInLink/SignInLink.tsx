@@ -1,33 +1,24 @@
 "use client";
 
 import React, { ButtonHTMLAttributes } from "react";
-import { CaretLeft } from "@phosphor-icons/react";
+import { SignIn } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 
-interface BackLinkProps
+interface SignInLinkProps
   extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> {
   text?: string;
-  redirectToHome?: boolean;
 }
 
-export function BackLink({
-  text = "Voltar",
-  redirectToHome = false,
-  ...props
-}: BackLinkProps) {
+export function SignInLink({ text = "Entrar", ...props }: SignInLinkProps) {
   const router = useRouter();
 
   const handleClick = () => {
-    if (redirectToHome) {
-      router.push("/");
-    } else {
-      router.back();
-    }
+    router.push("/auth/login");
   };
 
   return (
     <button {...props} onClick={handleClick}>
-      <CaretLeft size={20} /> {text}
+      <SignIn size={20} /> {text}
     </button>
   );
 }

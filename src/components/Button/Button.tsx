@@ -1,5 +1,6 @@
+"use client";
+
 import React from "react";
-import styles from "./Button.module.css";
 
 type ButtonProps = React.DetailedHTMLProps<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -23,13 +24,8 @@ export default function Button({ children, pending, ...props }: ButtonProps) {
   }, [pending]);
 
   return (
-    <button
-      className={styles.button}
-      ref={buttonRef}
-      disabled={pending}
-      {...props}
-    >
-      {pending ? <div className={styles.loader} /> : children}
+    <button ref={buttonRef} disabled={pending} {...props}>
+      {children}
     </button>
   );
 }
