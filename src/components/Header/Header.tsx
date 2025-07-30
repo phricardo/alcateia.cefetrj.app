@@ -57,9 +57,9 @@ export function Header() {
           </div>
 
           <div className={styles.group}>
-            <Link href="/sobre">
+            {/* <Link href="/sobre">
               <Info /> Sobre o App
-            </Link>
+            </Link> */}
 
             <div>
               {pathname != "/" && (

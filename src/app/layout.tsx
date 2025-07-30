@@ -4,6 +4,7 @@ import { Header } from "@/components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "@/contexts/user-context";
 import "./globals.css";
+import TabMenu from "@/components/TabMenu/TabMenu";
 
 export const metadata: Metadata = {
   title: "Alunos Cefet/RJ",
@@ -45,6 +46,7 @@ export default function RootLayout({
           <Toaster position="top-center" />
           <Header />
           <div className={`container`}>{children}</div>
+          <TabMenu />
         </UserContextProvider>
       </body>
     </html>
