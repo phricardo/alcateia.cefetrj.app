@@ -19,7 +19,7 @@ export default function SubmitButton({
 
   return (
     <button {...props} disabled={pending}>
-      {pending ? "Entrando..." : children}
+      {pending ? "Carregando..." : children}
     </button>
   );
 }
