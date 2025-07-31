@@ -2,14 +2,17 @@
 
 import React from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import SubmitButton from "@/components/Button/SubmitButton";
 import styles from "./LoginPage.module.css";
 import PasswordInput from "@/components/PasswordInput/PasswordInput";
 import LoginAction from "@/actions/login.action";
 import toast from "react-hot-toast";
+import { loadUser } from "@/contexts/user-context";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [state, action] = useFormState(LoginAction, {
     ok: false,
     error: null,
@@ -17,9 +20,12 @@ export default function LoginPage() {
   });
 
   React.useEffect(() => {
-    const domLoaded = typeof window !== "undefined";
-    if (state && state.ok && domLoaded) window.location.href = "/";
-  }, [state]);
+    if (state && state.ok) {
+      loadUser().then(() => {
+        router.push("/");
+      });
+    }
+  }, [state, router]);
 
   React.useEffect(() => {
     if (state && state.error) {
