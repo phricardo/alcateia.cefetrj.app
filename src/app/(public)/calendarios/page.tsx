@@ -35,6 +35,7 @@ export default function CalendarsPage() {
           { next: { revalidate: 0 } }
         );
         const data: CalendarResponse = await response.json();
+        console.log(data);
         setCalendarData(data);
         router.push(`?campus=${selectedCampus}`);
       } catch (error: unknown) {

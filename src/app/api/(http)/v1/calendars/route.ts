@@ -44,7 +44,8 @@ async function fetchCalendarsLinks(url: string): Promise<{
       }
     }
 
-    const currentYear = 2024;
+    // Usar ano atual dinâmico
+    const currentYear = new Date().getFullYear();
     const validYears = [
       currentYear.toString(),
       (currentYear - 1).toString(),
