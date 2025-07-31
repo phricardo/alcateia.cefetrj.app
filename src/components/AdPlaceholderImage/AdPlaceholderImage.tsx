@@ -10,7 +10,7 @@ type AdImageSliderProps = {
   borderRadius?: number;
 };
 
-const imageUrls = ["/images/banner.jpeg", "/images/banner_2.jpeg"];
+const imageUrls = ["/images/banner_2.jpeg"];
 
 function AutoplayPlugin(slider: any) {
   let timeout: NodeJS.Timeout;
