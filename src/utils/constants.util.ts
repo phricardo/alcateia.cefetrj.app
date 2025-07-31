@@ -12,6 +12,7 @@ export const campusCalendarsLinks: Record<string, string> = {
   VALENCA: "https://www.cefet-rj.br/index.php/campus-valenca",
 };
 
+
 export const campusDisplayNames: Record<string, string> = {
   MARACANA: "Maracanã",
   ANGRA_DOS_REIS: "Angra dos Reis",
