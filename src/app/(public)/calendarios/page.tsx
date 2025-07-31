@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { FileArrowDown } from "@phosphor-icons/react";
 import { CalendarResponse } from "@/@types/calendarResponse.type";
@@ -13,7 +12,6 @@ import {
 import styles from "./CalendarsPage.module.css";
 
 export default function CalendarsPage() {
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedCampus, setSelectedCampus] = useState<string>("MARACANA");
   const [calendarData, setCalendarData] = useState<CalendarResponse | null>(
@@ -21,26 +19,22 @@ export default function CalendarsPage() {
   );
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const campusParam = params.get("campus");
-    if (campusParam) setSelectedCampus(campusParam.toUpperCase());
-  }, []);
-
-  useEffect(() => {
     const fetchData = async () => {
       try {
         setLoading(true);
+
+        if (!campusCalendarsLinks[selectedCampus]) {
+          throw new Error(`Campus link not found for key: ${selectedCampus}`);
+        }
+
         const response = await fetch(
           `/api/v1/calendars?url=${campusCalendarsLinks[selectedCampus]}`,
           { next: { revalidate: 0 } }
         );
         const data: CalendarResponse = await response.json();
-        console.log(data);
         setCalendarData(data);
-        router.push(`?campus=${selectedCampus}`);
       } catch (error: unknown) {
         setCalendarData(null);
-        setSelectedCampus("MARACANA");
         console.error("Error fetching calendar data:", error);
       } finally {
         setLoading(false);
@@ -50,8 +44,7 @@ export default function CalendarsPage() {
   }, [selectedCampus]);
 
   const handleCampusChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const newCampus = event.target.value;
-    setSelectedCampus(newCampus);
+    setSelectedCampus(event.target.value);
   };
 
   if (loading && !calendarData) {
@@ -102,7 +95,11 @@ export default function CalendarsPage() {
                       {calendarData.calendars.currentYear.undergraduate.map(
                         (link, index) => (
                           <li key={index}>
-                            <Link href={link.link} target="_blank">
+                            <Link
+                              href={link.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <FileArrowDown /> {link.title}
                             </Link>
                           </li>
@@ -119,7 +116,11 @@ export default function CalendarsPage() {
                       {calendarData.calendars.currentYear.subsequent_technical.map(
                         (link, index) => (
                           <li key={index}>
-                            <Link href={link.link} target="_blank">
+                            <Link
+                              href={link.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <FileArrowDown /> {link.title}
                             </Link>
                           </li>
@@ -136,7 +137,11 @@ export default function CalendarsPage() {
                       {calendarData.calendars.currentYear.others.map(
                         (link, index) => (
                           <li key={index}>
-                            <Link href={link.link} target="_blank">
+                            <Link
+                              href={link.link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <FileArrowDown /> {link.title}
                             </Link>
                           </li>
@@ -168,7 +173,11 @@ export default function CalendarsPage() {
                           <ul>
                             {links.undergraduate.map((link, index) => (
                               <li key={index}>
-                                <Link href={link.link} target="_blank">
+                                <Link
+                                  href={link.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <FileArrowDown /> {link.title}
                                 </Link>
                               </li>
@@ -183,7 +192,11 @@ export default function CalendarsPage() {
                           <ul>
                             {links.integrated_technical.map((link, index) => (
                               <li key={index}>
-                                <Link href={link.link} target="_blank">
+                                <Link
+                                  href={link.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <FileArrowDown /> {link.title}
                                 </Link>
                               </li>
@@ -198,7 +211,11 @@ export default function CalendarsPage() {
                           <ul>
                             {links.subsequent_technical.map((link, index) => (
                               <li key={index}>
-                                <Link href={link.link} target="_blank">
+                                <Link
+                                  href={link.link}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                >
                                   <FileArrowDown /> {link.title}
                                 </Link>
                               </li>

@@ -181,3 +181,29 @@ form p {
   margin: 0 auto;
   padding: 1rem;
 }
+select {
+  padding: 8px 32px 8px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  transition: border-color 0.3s ease;
+
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%23333" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px 16px;
+}
+
+select:hover,
+select:focus {
+  border-color: #3b82f6;
+
+  /* seta azul no hover/focus */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%233b82f6" height="16" viewBox="0 0 24 24" width="16" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+}
