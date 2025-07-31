@@ -39,7 +39,26 @@ let setIsLoadingGlobal: React.Dispatch<React.SetStateAction<boolean>>;
 export async function loadUser() {
   if (setIsLoadingGlobal && setUserStateGlobal) {
     setIsLoadingGlobal(true);
+
+    const local = localStorage.getItem("user");
+    if (local) {
+      try {
+        const user = JSON.parse(local) as IAuthenticatedUser;
+        setUserStateGlobal(user);
+        setIsLoadingGlobal(false);
+        return;
+      } catch {
+        localStorage.removeItem("user");
+      }
+    }
+
     const user = await fetchUser();
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+
     setUserStateGlobal(user);
     setIsLoadingGlobal(false);
   }
@@ -57,6 +76,11 @@ export function UserContextProvider({
   setIsLoadingGlobal = setIsLoading;
 
   const setUser = (user: IAuthenticatedUser | null) => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
     setUserState(user);
   };
 
