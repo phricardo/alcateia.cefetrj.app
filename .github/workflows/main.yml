@@ -44,8 +44,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Build APK with Bubblewrap
-        run: yes n | bubblewrap build
-
+        run: bubblewrap build --ci
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
