@@ -42,18 +42,16 @@ export function UserContextProvider({
       try {
         setIsLoading(true);
 
-        // const savedUser = localStorage.getItem("user");
-        // if (savedUser) {
-        //   setUserState(JSON.parse(savedUser));
-        //   setIsLoading(false);
-        //   return;
-        // }
+        const savedUser = localStorage.getItem("user");
+        if (savedUser) {
+          setUserState(JSON.parse(savedUser));
+          setIsLoading(false);
+          return;
+        }
 
         const { url, options } = USER_GET();
         const response = await fetch(url, options);
         const json = await response.json();
-
-        console.log(json);
 
         if (json.user) {
           setUser(json.user);

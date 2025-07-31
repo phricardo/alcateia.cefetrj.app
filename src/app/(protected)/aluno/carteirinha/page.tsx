@@ -5,8 +5,6 @@ import Image from "next/image";
 import { useQRCode } from "next-qrcode";
 import { UserContext } from "@/contexts/user-context";
 import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
-import { STUDENT_CARD_VALIDATE_GET } from "@/functions/api";
-import { IEnrollmentValidationData } from "@/@types/authUser.type";
 import styles from "./page.module.css";
 
 function getCampusName(enumValue?: string | null): string {
@@ -36,29 +34,12 @@ export default function StudentIdCardPage() {
   const { Canvas } = useQRCode();
   const currentYear: number = new Date().getFullYear();
   const { user, isLoading } = React.useContext(UserContext);
-  const [data, setData] = React.useState<IEnrollmentValidationData | null>(
-    null
-  );
 
-  React.useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (user?.studentId) {
-          const { url, options } = STUDENT_CARD_VALIDATE_GET(user.studentId);
-          const response = await fetch(url, options);
-          const json = (await response.json()) as IEnrollmentValidationData;
-          setData(json);
-        }
-      } catch (err) {
-        setData(null);
-      }
-    };
-    fetchData();
-  }, [user]);
+  const studentId = user?.studentId;
+  const authCode = user?.studentCard?.authCode ?? "";
+  const consultationURL = user?.studentCard?.consultationURL ?? "";
 
-  const studentId = user?.enrollment?.slice(0, 6);
-
-  if ((!user && isLoading) || !data) {
+  if ((!user && isLoading) || !consultationURL || !authCode) {
     return (
       <div className={styles.pageWrapper}>
         <SkeletonLoading width="100%" height="60vh" />
@@ -104,7 +85,7 @@ export default function StudentIdCardPage() {
         <div className={styles.qrCodeWrapper}>
           <div className={styles.qrCodeSection}>
             <Canvas
-              text={data.student.url}
+              text={consultationURL}
               options={{
                 errorCorrectionLevel: "M",
                 margin: 0,
@@ -119,7 +100,7 @@ export default function StudentIdCardPage() {
           </div>
           <p className={styles.authCode}>
             Autenticação:
-            <br /> {data.student.code}
+            <br /> {authCode}
           </p>
         </div>
       </div>

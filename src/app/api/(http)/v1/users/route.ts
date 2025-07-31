@@ -65,6 +65,11 @@ export async function GET(request: NextRequest) {
     const currentDisciplines = extractDisciplineNames(pdfText);
     const [courseCode, courseName] = splitAndTrim(rest.course ?? "");
 
+    const urlMatch = pdfText.match(/Consultar em: (https?:\/\/[^\s]+)/);
+    const consultationURL = urlMatch ? urlMatch[1] : null;
+    const authCodeMatch = pdfText.match(/Autenticação: ([A-F0-9.]+)/);
+    const authCode = authCodeMatch ? authCodeMatch[1] : null;
+
     // 4. Monta o usuário final
     const user = {
       name: capitalizeName(name),
@@ -75,6 +80,10 @@ export async function GET(request: NextRequest) {
         id: documentId,
       },
       ...rest,
+      studentCard: {
+        consultationURL,
+        authCode,
+      },
       currentDisciplines,
       course: courseName,
     };
