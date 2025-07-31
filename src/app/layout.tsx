@@ -3,8 +3,8 @@ import { type_first } from "@/functions/fonts";
 import { Header } from "@/components/Header/Header";
 import { Toaster } from "react-hot-toast";
 import { UserContextProvider } from "@/contexts/user-context";
-import "./globals.css";
 import TabMenu from "@/components/TabMenu/TabMenu";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Alunos Cefet/RJ",

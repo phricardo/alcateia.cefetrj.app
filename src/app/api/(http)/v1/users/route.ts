@@ -9,7 +9,12 @@ import {
   extractStudentInfo,
   extractUser,
   extractCampusFromSchedule,
+  extractDisciplineNames,
 } from "@/app/api/utils/links.util";
+
+export function splitAndTrim(input: string): string[] {
+  return input.split("-").map((part) => part.trim());
+}
 
 export async function GET(request: NextRequest) {
   try {
@@ -57,6 +62,8 @@ export async function GET(request: NextRequest) {
     const pdfBuffer = pdfResponse.data;
     const pdfText = await pdfToText(pdfBuffer);
     const campus = extractCampusFromSchedule(pdfText);
+    const currentDisciplines = extractDisciplineNames(pdfText);
+    const [courseCode, courseName] = splitAndTrim(rest.course ?? "");
 
     // 4. Monta o usuário final
     const user = {
@@ -68,6 +75,8 @@ export async function GET(request: NextRequest) {
         id: documentId,
       },
       ...rest,
+      currentDisciplines,
+      course: courseName,
     };
 
     return NextResponse.json({ user }, { status: 200 });

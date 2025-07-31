@@ -31,6 +31,30 @@ export function extractCampusFromSchedule(pdfText: string): string | null {
   return match ? match[1].toUpperCase().replace(/\s+/g, "_") : null;
 }
 
+export function extractDisciplineNames(text: string): string[] {
+  const lines = text.split(/\r?\n/);
+  const disciplines: string[] = [];
+  const codePattern = /^[A-Z]+\d+[A-Z]+$/;
+
+  for (let i = 0; i < lines.length - 2; i++) {
+    const line = lines[i].trim();
+    const nextNextLine = lines[i + 2].trim();
+
+    if (/^\d+$/.test(line)) {
+      if (
+        nextNextLine.length > 0 &&
+        nextNextLine === nextNextLine.toUpperCase() &&
+        /[A-ZÀ-Ÿ]/.test(nextNextLine) &&
+        !codePattern.test(nextNextLine)
+      ) {
+        disciplines.push(nextNextLine);
+      }
+    }
+  }
+
+  return disciplines;
+}
+
 export const extractStudentInfo = (html: string): StudentInfo => {
   const $ = cheerio.load(html);
 

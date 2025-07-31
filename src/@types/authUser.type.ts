@@ -19,6 +19,7 @@ export type IAuthenticatedUser = {
   course?: string;
   currentPeriod?: string;
   enrollmentPeriod?: string;
+  currentDisciplines?: string[];
   campus?: Campus | null;
 };
 

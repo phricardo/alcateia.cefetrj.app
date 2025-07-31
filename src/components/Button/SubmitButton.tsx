@@ -2,6 +2,7 @@
 
 import React from "react";
 import { useFormStatus } from "react-dom";
+import Button from "./Button";
 
 interface SubmitButtonProps
   extends React.DetailedHTMLProps<
@@ -18,8 +19,8 @@ export default function SubmitButton({
   const { pending } = useFormStatus();
 
   return (
-    <button {...props} disabled={pending}>
+    <Button {...props} isLoading={pending}>
       {pending ? "Carregando..." : children}
-    </button>
+    </Button>
   );
 }
