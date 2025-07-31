@@ -22,6 +22,7 @@ export type IAuthenticatedUser = {
   currentDisciplines?: string[];
   campus?: Campus | null;
   enrollmentYearSemester?: string;
+  enrollmentLabel?: string;
   studentCard?: {
     consultationURL: string;
     authCode: string;

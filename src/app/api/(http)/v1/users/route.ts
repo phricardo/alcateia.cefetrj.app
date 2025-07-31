@@ -22,16 +22,17 @@ function parseEnrollment(enrollment?: string) {
   const raw = enrollment.slice(0, 3);
   const year = parseInt(`20${raw.slice(0, 2)}`, 10);
   const semesterDigit = raw[2];
+
   const semesterLabel =
     semesterDigit === "1"
-      ? "first"
+      ? "1º Semestre"
       : semesterDigit === "2"
-      ? "second"
-      : "unknown";
+      ? "2º Semestre"
+      : "Semestre Desconhecido";
 
   return {
     enrollmentYearSemester: `${year}.${semesterDigit}`,
-    enrollmentLabel: `Enrolled in the ${semesterLabel} semester of ${year}`,
+    enrollmentLabel: `${semesterLabel}/${year}`,
   };
 }
 
