@@ -8,6 +8,7 @@ import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
 import styles from "./page.module.css";
 import html2pdf from "html2pdf.js";
 import { DownloadSimple } from "@phosphor-icons/react";
+
 function getCampusName(enumValue?: string | null): string {
   if (!enumValue) return "Campus desconhecido";
 
@@ -41,9 +42,11 @@ export default function StudentIdCardPage() {
   const authCode = user?.studentCard?.authCode ?? "";
   const consultationURL = user?.studentCard?.consultationURL ?? "";
 
-  const handleDownloadPDF = () => {
+  const handleDownloadPDF = async () => {
     if (!cardRef.current) return;
     const element = cardRef.current;
+
+    const html2pdf = (await import("html2pdf.js")).default;
 
     html2pdf()
       .set({
