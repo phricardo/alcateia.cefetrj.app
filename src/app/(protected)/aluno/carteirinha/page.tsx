@@ -98,6 +98,10 @@ export default function StudentIdCardPage() {
             <strong>Matrícula:</strong> {user?.enrollment ?? "N/A"}
           </li>
           <li>
+            <strong>Ingressou em:</strong>{" "}
+            {user?.enrollmentYearSemester ?? "N/A"}
+          </li>
+          <li>
             <strong>Campus:</strong> {getCampusName(user?.campus)}
           </li>
           <li>

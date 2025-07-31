@@ -16,6 +16,25 @@ function splitAndTrim(input: string): string[] {
   return input.split("-").map((part) => part.trim());
 }
 
+function parseEnrollment(enrollment?: string) {
+  if (!enrollment || enrollment.length < 3) return null;
+
+  const raw = enrollment.slice(0, 3);
+  const year = parseInt(`20${raw.slice(0, 2)}`, 10);
+  const semesterDigit = raw[2];
+  const semesterLabel =
+    semesterDigit === "1"
+      ? "first"
+      : semesterDigit === "2"
+      ? "second"
+      : "unknown";
+
+  return {
+    enrollmentYearSemester: `${year}.${semesterDigit}`,
+    enrollmentLabel: `Enrolled in the ${semesterLabel} semester of ${year}`,
+  };
+}
+
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get("CEFETID_SSO");
@@ -69,6 +88,7 @@ export async function GET(request: NextRequest) {
     const consultationURL = urlMatch ? urlMatch[1] : null;
     const authCodeMatch = pdfText.match(/Autenticação: ([A-F0-9.]+)/);
     const authCode = authCodeMatch ? authCodeMatch[1] : null;
+    const enrollmentInfo = parseEnrollment(rest.enrollment);
 
     // 4. Monta o usuário final
     const user = {
@@ -80,6 +100,7 @@ export async function GET(request: NextRequest) {
         id: documentId,
       },
       ...rest,
+      ...enrollmentInfo,
       studentCard: {
         consultationURL,
         authCode,
