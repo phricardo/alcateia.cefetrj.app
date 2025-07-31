@@ -12,7 +12,7 @@ import {
   extractDisciplineNames,
 } from "@/app/api/utils/links.util";
 
-export function splitAndTrim(input: string): string[] {
+function splitAndTrim(input: string): string[] {
   return input.split("-").map((part) => part.trim());
 }
 
