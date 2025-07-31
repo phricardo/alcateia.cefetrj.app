@@ -46,8 +46,8 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
-      - name: Build APK with Bubblewrap
-        run: bubblewrap build --noPrompt --skipJdkCheck
+      - name: Build APK with Bubblewrap (let it install JDK)
+        run: echo "Y" | bubblewrap build --noPrompt
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
