@@ -1,1 +1,12 @@
-{}
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.phricardo.alunos_cefetrj.twa",
+      "sha256_cert_fingerprints": [
+        "EE:82:15:0C:F4:31:62:7B:9B:6D:78:15:07:28:9C:58:29:7A:B2:16:3D:A0:72:33:52:69:4F:C4:37:10:8E:E8"
+      ]
+    }
+  }
+]
