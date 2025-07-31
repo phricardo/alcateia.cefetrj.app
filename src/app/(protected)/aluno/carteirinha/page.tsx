@@ -1,12 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { useQRCode } from "next-qrcode";
 import { UserContext } from "@/contexts/user-context";
 import { SkeletonLoading } from "@/components/SkeletonLoading/SkeletonLoading";
 import styles from "./page.module.css";
-
+import html2pdf from "html2pdf.js";
+import { DownloadSimple } from "@phosphor-icons/react";
 function getCampusName(enumValue?: string | null): string {
   if (!enumValue) return "Campus desconhecido";
 
@@ -32,12 +33,29 @@ function getCampusName(enumValue?: string | null): string {
 
 export default function StudentIdCardPage() {
   const { Canvas } = useQRCode();
-  const currentYear: number = new Date().getFullYear();
+  const currentYear = new Date().getFullYear();
   const { user, isLoading } = React.useContext(UserContext);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const studentId = user?.studentId;
   const authCode = user?.studentCard?.authCode ?? "";
   const consultationURL = user?.studentCard?.consultationURL ?? "";
+
+  const handleDownloadPDF = () => {
+    if (!cardRef.current) return;
+    const element = cardRef.current;
+
+    html2pdf()
+      .set({
+        margin: 0,
+        filename: "carteirinha.pdf",
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 4 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      })
+      .from(element)
+      .save();
+  };
 
   if ((!user && isLoading) || !consultationURL || !authCode) {
     return (
@@ -49,7 +67,12 @@ export default function StudentIdCardPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <div className={styles.card}>
+      <button onClick={handleDownloadPDF} className={styles.printButton}>
+        <DownloadSimple size={20} weight="bold" style={{ marginRight: 8 }} />{" "}
+        Baixar PDF
+      </button>
+
+      <div className={styles.card} ref={cardRef}>
         <div className={styles.cardHeader}>
           <div className={styles.cardHeaderText}>
             <Image
