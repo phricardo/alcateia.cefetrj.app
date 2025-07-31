@@ -70,11 +70,6 @@ export default function StudentIdCardPage() {
 
   return (
     <div className={styles.pageWrapper}>
-      <button onClick={handleDownloadPDF} className={styles.printButton}>
-        <DownloadSimple size={20} weight="bold" style={{ marginRight: 8 }} />{" "}
-        Baixar PDF
-      </button>
-
       <div className={styles.card} ref={cardRef}>
         <div className={styles.cardHeader}>
           <div className={styles.cardHeaderText}>
