@@ -18,18 +18,21 @@ jobs:
         with:
           node-version: 18
 
-      - name: Setup Java
+      - name: Setup Java 17 (Temurin)
         uses: actions/setup-java@v3
         with:
-          distribution: "temurin"
-          java-version: "17"
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Check Java version
+        run: java -version
 
       - name: Install Bubblewrap CLI
         run: npm install -g @bubblewrap/cli
 
       - name: Restore keystore from secret
-        run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android.keystore
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > android.keystore
 
       - name: Patch twa-manifest.json with secrets
         run: |
@@ -44,7 +47,7 @@ jobs:
           KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
 
       - name: Build APK with Bubblewrap
-        run: bubblewrap build --ci
+        run: bubblewrap build --noPrompt
 
       - name: Upload APK as artifact
         uses: actions/upload-artifact@v4
