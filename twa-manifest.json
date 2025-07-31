@@ -25,6 +25,10 @@
   "alphaDependencies": {
     "enabled": false
   },
+  "signingKey": {
+    "path": "C:\\Users\\RUINDOWS\\Desktop\\alunos.cefetrj\\android.keystore",
+    "alias": "android"
+  },
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
   "isMetaQuest": false,
