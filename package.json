@@ -18,7 +18,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "build:apk": "bubblewrap build"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
