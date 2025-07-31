@@ -46,7 +46,7 @@ export default function IndexPage() {
 
   const privateLinks: LinkItem[] = [
     {
-      label: "Minha Carteirinha",
+      label: "Carteirinha",
       href: "/aluno/carteirinha",
       icon: <IdentificationCard />,
     },
