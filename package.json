@@ -19,7 +19,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:apk": "bubblewrap build"
+    "build:apk": "bubblewrap build",
+    "create-keystore": "keytool -genkeypair -alias android -keyalg RSA -keysize 2048 -validity 10000 -keystore ./android.keystore -storepass suaSenha123 -keypass suaSenha123 -dname \"CN=Pedro Ricardo, OU=Dev, O=phricardo.com, L=Rio de Janeiro, S=RJ, C=BR\""
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
@@ -43,6 +44,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@bubblewrap/cli": "^1.23.0",
     "@types/node": "^20",
     "@types/pdf-parse": "^1.1.4",
     "@types/react": "^18",

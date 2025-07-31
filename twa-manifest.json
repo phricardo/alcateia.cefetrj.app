@@ -15,8 +15,12 @@
   "startUrl": "/",
   "iconUrl": "https://alunos-cefetrj.phricardo.com/icons/favicon-512x512.png",
   "splashScreenFadeOutDuration": 300,
-  "appVersionName": "4",
-  "appVersionCode": 4,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "android"
+  },
+  "appVersionName": "5",
+  "appVersionCode": 5,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://alunos-cefetrj.phricardo.com/manifest.json",
@@ -24,10 +28,6 @@
   "features": {},
   "alphaDependencies": {
     "enabled": false
-  },
-  "signingKey": {
-    "path": "C:\\Users\\RUINDOWS\\Desktop\\alunos.cefetrj\\android.keystore",
-    "alias": "android"
   },
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
@@ -41,5 +41,5 @@
   "protocolHandlers": [],
   "fileHandlers": [],
   "launchHandlerClientMode": "",
-  "appVersion": "4"
+  "appVersion": "5"
 }
