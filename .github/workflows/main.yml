@@ -32,7 +32,8 @@ jobs:
       run: npm run build:apk
 
     - name: Upload APK artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: app-release-signed-apk
         path: ./app-release-signed.apk
+
