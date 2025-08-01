@@ -38,6 +38,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hot-toast": "^2.5.2",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
     "tough-cookie": "^4.1.4",
     "web-push": "^3.6.7",
     "xml2js": "^0.6.2",
