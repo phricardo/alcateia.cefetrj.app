@@ -188,7 +188,8 @@ form p {
   margin: 0 auto;
   padding: 1rem;
   background: #ffffff;
-  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
 }
 select {
   padding: 8px 32px 8px 12px;
