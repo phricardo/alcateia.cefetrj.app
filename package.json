@@ -20,7 +20,7 @@
     "start": "next start",
     "lint": "next lint",
     "build:apk": "bubblewrap build",
-    "create-keystore": "keytool -genkeypair -alias android -keyalg RSA -keysize 2048 -validity 10000 -keystore ./android.keystore -storepass suaSenha123 -keypass suaSenha123 -dname \"CN=Pedro Ricardo, OU=Dev, O=phricardo.com, L=Rio de Janeiro, S=RJ, C=BR\""
+    "create-keystore": "keytool -genkeypair -alias android -keyalg RSA -keysize 2048 -validity 10000 -keystore ./android.keystore"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
