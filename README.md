@@ -5,6 +5,8 @@
 - Cheerio
 - Tough Cookie
 - Phosphor Icons (React)
+- Bubblewrap CLI (for Trusted Web Activity / TWA)
+- Keytool / Java JDK (for keystore management and APK signing)
 
 ## Contributors
 
