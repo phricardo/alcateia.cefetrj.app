@@ -45,7 +45,7 @@ export default function RootLayout({
         <UserContextProvider>
           <Toaster position="top-center" />
           <Header />
-          <div className={`container`} style={{ paddingBottom: "4rem" }}>
+          <div className={`wrapperPrincipal`} style={{ paddingBottom: "4rem" }}>
             {children}
           </div>
           <TabMenu />

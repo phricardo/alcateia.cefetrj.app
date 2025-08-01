@@ -31,26 +31,24 @@ export default function TabMenu() {
   ];
 
   return (
-    <div className={styles.tabMenu}>
-      <div className={`container ${styles.tabMenuWrapper}`}>
-        {tabs.map((tab, index) => {
-          if (!tab) return null;
+    <div className={`container ${styles.tabMenu}`}>
+      {tabs.map((tab, index) => {
+        if (!tab) return null;
 
-          const isActive = pathname === tab.href;
-          const Icon = tab.icon;
+        const isActive = pathname === tab.href;
+        const Icon = tab.icon;
 
-          return (
-            <Link key={index} href={tab.href}>
-              <div
-                className={`${styles.tabItem} ${isActive ? styles.active : ""}`}
-              >
-                <Icon size={24} weight={isActive ? "fill" : "regular"} />
-                <span>{tab.label}</span>
-              </div>
-            </Link>
-          );
-        })}
-      </div>
+        return (
+          <Link key={index} href={tab.href}>
+            <div
+              className={`${styles.tabItem} ${isActive ? styles.active : ""}`}
+            >
+              <Icon size={24} weight={isActive ? "fill" : "regular"} />
+              <span>{tab.label}</span>
+            </div>
+          </Link>
+        );
+      })}
     </div>
   );
 }
