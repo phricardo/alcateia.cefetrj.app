@@ -50,8 +50,8 @@ export function Header() {
               <Image
                 src="/images/logo.png"
                 height={35}
-                width={184}
-                alt="Integra.Cefet/RJ"
+                width={130}
+                alt="alcateia.Cefet/RJ"
               />
             </Link>
           </div>
