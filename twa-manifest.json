@@ -1,8 +1,8 @@
 {
   "packageId": "com.phricardo.alunos_cefetrj.twa",
   "host": "alunos-cefetrj.phricardo.com",
-  "name": "Alunos Cefet/RJ",
-  "launcherName": "Alunos",
+  "name": "alcateia.id",
+  "launcherName": "alcateia.id",
   "display": "standalone",
   "themeColor": "#00407A",
   "themeColorDark": "#00407A",
@@ -19,8 +19,8 @@
     "path": "./android.keystore",
     "alias": "android"
   },
-  "appVersionName": "9",
-  "appVersionCode": 9,
+  "appVersionName": "11",
+  "appVersionCode": 11,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://alunos-cefetrj.phricardo.com/manifest.json",
@@ -41,5 +41,5 @@
   "protocolHandlers": [],
   "fileHandlers": [],
   "launchHandlerClientMode": "",
-  "appVersion": "9"
+  "appVersion": "11"
 }
