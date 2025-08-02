@@ -45,7 +45,7 @@ next-env.d.ts
 # ========================
 android.keystore
 .gradle/
-app/
+/android/app/
 build/
 *.jks
 *.apk
