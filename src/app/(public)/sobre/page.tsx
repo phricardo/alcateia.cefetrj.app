@@ -3,5 +3,9 @@
 import React from "react";
 
 export default function SobrePage() {
-  return <div></div>;
+  return (
+    <div>
+      <h1>Página "Sobre" em construção</h1>
+    </div>
+  );
 }

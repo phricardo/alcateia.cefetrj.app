@@ -92,7 +92,7 @@ export default function NewsPage() {
   };
 
   return (
-    <div className={`container ${styles.feed}`}>
+    <div className={styles.feed}>
       <div className={styles.options}>
         <div className={styles.option}>
           <label htmlFor="selectCampus">
