@@ -50,8 +50,8 @@ export async function GET(request: NextRequest) {
 
     const { name, studentId } = extractUser(indexResponse.data);
 
-    // 2. Perfil, Relatórios e comprovante
-    const [profileResponse, docsResponse, pdfResponse] = await Promise.all([
+    // 2. Perfil e Relatórios (obrigatórios)
+    const [profileResponse, docsResponse] = await Promise.all([
       axios.get(`${BASE_URL}/aluno/aluno/perfil/perfil.action`, {
         headers: {
           Cookie: `JSESSIONIDSSO=${token.value}`,
@@ -65,7 +65,15 @@ export async function GET(request: NextRequest) {
           },
         }
       ),
-      axios.get(
+    ]);
+
+    const documentId = extractCPF(profileResponse.data);
+    const rest = extractStudentInfo(docsResponse.data);
+
+    // 3. Comprovante de matrícula (opcional)
+    let pdfText = "";
+    try {
+      const pdfResponse = await axios.get(
         `${BASE_URL}/aluno/aluno/relatorio/com/comprovanteMatricula.action?matricula=${studentId}`,
         {
           headers: {
@@ -73,25 +81,27 @@ export async function GET(request: NextRequest) {
           },
           responseType: "arraybuffer",
         }
-      ),
-    ]);
+      );
+      const pdfBuffer = pdfResponse.data;
+      pdfText = await pdfToText(pdfBuffer);
+    } catch (err) {
+      console.warn("Falha ao buscar ou processar o comprovante de matrícula.");
+    }
 
-    const documentId = extractCPF(profileResponse.data);
-    const rest = extractStudentInfo(docsResponse.data);
-
-    const pdfBuffer = pdfResponse.data;
-    const pdfText = await pdfToText(pdfBuffer);
+    // 4. Extrações com fallback
     const campus = extractCampusFromSchedule(pdfText);
     const currentDisciplines = extractDisciplineNames(pdfText);
     const [courseCode, courseName] = splitAndTrim(rest.course ?? "");
 
     const urlMatch = pdfText.match(/Consultar em: (https?:\/\/[^\s]+)/);
     const consultationURL = urlMatch ? urlMatch[1] : null;
+
     const authCodeMatch = pdfText.match(/Autenticação: ([A-F0-9.]+)/);
     const authCode = authCodeMatch ? authCodeMatch[1] : null;
+
     const enrollmentInfo = parseEnrollment(rest.enrollment);
 
-    // 4. Monta o usuário final
+    // 5. Monta o usuário final
     const user = {
       name: capitalizeName(name),
       studentId,

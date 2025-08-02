@@ -21,9 +21,8 @@ export default function LoginPage() {
 
   React.useEffect(() => {
     if (state && state.ok) {
-      loadUser().then(() => {
-        router.push("/");
-      });
+      router.push("/");
+      loadUser();
     }
   }, [state, router]);
 

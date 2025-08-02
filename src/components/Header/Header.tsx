@@ -11,10 +11,12 @@ import Link from "next/link";
 import { BackLink } from "../BackLink/BackLink";
 import { SignInLink } from "../SignInLink/SignInLink";
 import LogoutButton from "../Button/LogoutButton";
-import { DotsThreeVertical, Info } from "@phosphor-icons/react";
+import { Info } from "@phosphor-icons/react";
+import { useCefetStatus } from "@/hooks/useCefetStatus";
 
 export function Header() {
   const pathname = usePathname();
+  const status = useCefetStatus();
   const { user, isLoading } = React.useContext(UserContext);
   const [greeting, setGreeting] = React.useState<string | null>(null);
 
@@ -100,6 +102,26 @@ export function Header() {
                 : "Seja bem-vindo(a) à sua conta!"
               : "Faça login para obter mais recursos!"}
           </p>
+
+          <div className={styles.statusWrapper}>
+            <span
+              className={`${styles.statusIndicator} ${
+                status === "online"
+                  ? styles.online
+                  : status === "parcial"
+                  ? styles.partial
+                  : status === "offline"
+                  ? styles.offline
+                  : ""
+              }`}
+            />
+            <span className={styles.statusText}>
+              {status === "online" && "Conectado ao sistema do CEFET/RJ"}
+              {status === "parcial" && "Conexão parcial com o sistema"}
+              {status === "offline" && "Sem conexão com o sistema"}
+              {status === "checking" && "Verificando conexão..."}
+            </span>
+          </div>
         </div>
       </div>
     </header>

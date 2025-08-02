@@ -42,25 +42,7 @@ export default function StudentIdCardPage() {
   const authCode = user?.studentCard?.authCode ?? "";
   const consultationURL = user?.studentCard?.consultationURL ?? "";
 
-  const handleDownloadPDF = async () => {
-    if (!cardRef.current) return;
-    const element = cardRef.current;
-
-    const html2pdf = (await import("html2pdf.js")).default;
-
-    html2pdf()
-      .set({
-        margin: 0,
-        filename: "carteirinha.pdf",
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 4 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      })
-      .from(element)
-      .save();
-  };
-
-  if ((!user && isLoading) || !consultationURL || !authCode) {
+  if (!user && isLoading) {
     return (
       <div className={styles.pageWrapper}>
         <SkeletonLoading width="100%" height="60vh" />
@@ -98,9 +80,9 @@ export default function StudentIdCardPage() {
           <li>
             <strong>Ingressou em:</strong> {user?.enrollmentLabel ?? "N/A"}
           </li>
-          <li>
+          {/* <li>
             <strong>Campus:</strong> {getCampusName(user?.campus)}
-          </li>
+          </li> */}
           <li>
             <strong>Validade:</strong> 31/12/{currentYear}
           </li>
@@ -108,24 +90,22 @@ export default function StudentIdCardPage() {
 
         <div className={styles.qrCodeWrapper}>
           <div className={styles.qrCodeSection}>
-            <Canvas
-              text={consultationURL}
-              options={{
-                errorCorrectionLevel: "M",
-                margin: 0,
-                scale: 4,
-                width: 180,
-                color: {
-                  dark: "#000000",
-                  light: "#FFFFFF",
-                },
-              }}
-            />
+            {consultationURL && (
+              <Canvas
+                text={consultationURL}
+                options={{
+                  errorCorrectionLevel: "M",
+                  margin: 0,
+                  scale: 4,
+                  width: 180,
+                  color: {
+                    dark: "#000000",
+                    light: "#FFFFFF",
+                  },
+                }}
+              />
+            )}
           </div>
-          <p className={styles.authCode}>
-            Autenticação:
-            <br /> {authCode}
-          </p>
         </div>
       </div>
     </div>

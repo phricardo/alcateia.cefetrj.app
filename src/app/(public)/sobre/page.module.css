@@ -1,0 +1,47 @@
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1a202c;
+}
+
+.paragraph {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  color: #2d3748;
+}
+
+.warning {
+  font-weight: bold;
+  color: #e53e3e;
+}
+
+.version {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.authorContainer {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.authorInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  font-size: 0.9rem;
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

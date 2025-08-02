@@ -56,3 +56,76 @@
 .about:focus {
   color: #ffffff;
 }
+
+.statusWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.statusIndicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ✅ Online */
+.online {
+  background-color: #00c851;
+  animation: pulseGreen 1.5s infinite;
+}
+
+/* 🟡 Parcial */
+.partial {
+  background-color: #ffbb33;
+  animation: pulseYellow 1.5s infinite;
+}
+
+/* 🔴 Offline */
+.offline {
+  background-color: #ff4444;
+  animation: pulseRed 1.5s infinite;
+}
+
+/* Verificações visuais específicas */
+@keyframes pulseGreen {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 200, 81, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 200, 81, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 200, 81, 0);
+  }
+}
+
+@keyframes pulseYellow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 187, 51, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 187, 51, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 187, 51, 0);
+  }
+}
+
+@keyframes pulseRed {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, 0);
+  }
+}
+
+.statusText {
+  font-weight: 500;
+}

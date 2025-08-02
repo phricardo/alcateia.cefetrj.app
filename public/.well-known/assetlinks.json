@@ -3,7 +3,7 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "com.phricardo.alunos_cefetrj.twa",
+      "package_name": "com.alcateia.alunos",
       "sha256_cert_fingerprints": [
         "C3:9A:E2:3E:C2:D0:91:84:23:03:A2:6C:59:34:1F:9E:6F:3F:F5:DC:3A:7D:8F:3F:29:7A:AE:17:C9:61:90:5D"
       ]

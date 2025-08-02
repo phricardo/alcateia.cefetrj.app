@@ -27,7 +27,10 @@ export default function StudentSchedulePage() {
               </div>
             ))
           ) : (
-            <p>Você não possui disciplinas cadastradas.</p>
+            <p>
+              Você ainda não possui disciplinas cadastradas. Aguarde a abertura
+              do período de matrícula para que suas aulas apareçam aqui.
+            </p>
           )}
         </div>
       </div>
