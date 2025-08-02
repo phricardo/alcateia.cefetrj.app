@@ -7,7 +7,7 @@ import TabMenu from "@/components/TabMenu/TabMenu";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Alunos Cefet/RJ",
+  title: "alcateia.id - Cefet/RJ",
   description: "Integração extraoficial e de código aberto com o Cefet/RJ",
   icons: {
     icon: [
