@@ -1,31 +1,12 @@
-self.addEventListener("push", function (event) {
-  const data = event.data?.text() ?? "{}";
-  let title = "Notificação";
-  let body = "";
-
-  try {
-    const jsonData = JSON.parse(data);
-    title = jsonData.title ?? "Notificação";
-    body = jsonData.body ?? "";
-  } catch (error) {
-    console.error("Erro ao analisar o JSON:", error);
-  }
-
-  event.waitUntil(
-    self.registration.showNotification(title, {
-      body,
-      icon: "https://upload.wikimedia.org/wikipedia/commons/4/41/Logotipo_cefet-rj.jpg",
-      actions: [
-        {
-          action: "open_app",
-          title: "Abrir o App",
-        },
-      ],
-    })
-  );
+self.addEventListener("install", (event) => {
+  console.log("[SW] Instalado");
+  self.skipWaiting();
 });
 
-self.addEventListener("notificationclick", function (event) {
-  event.notification.close();
-  event.waitUntil(clients.openWindow("/"));
+self.addEventListener("activate", (event) => {
+  console.log("[SW] Ativado");
 });
+
+// self.addEventListener("fetch", (event) => {
+//   console.log("[SW] Interceptando:", event.request.url);
+// });

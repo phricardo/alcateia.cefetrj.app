@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -24,7 +24,20 @@ type LinkItem = {
 };
 
 export default function IndexPage() {
-  const { user, isLoading } = React.useContext(UserContext);
+  const { user, isLoading } = useContext(UserContext);
+
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .then((registration) => {
+          console.log("[SW] Registrado com sucesso:", registration.scope);
+        })
+        .catch((err) => {
+          console.error("[SW] Falha ao registrar:", err);
+        });
+    }
+  }, []);
 
   const commonLinks: LinkItem[] = [
     {
@@ -106,7 +119,6 @@ export default function IndexPage() {
   return (
     <div className={styles.indexWrapper}>
       <AdPlaceholderImage />
-
       <div className={styles.links}>
         <ul>
           {allLinks.map(({ label, href, icon, external }, index) => (
