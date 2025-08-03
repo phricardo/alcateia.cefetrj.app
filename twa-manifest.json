@@ -1,5 +1,5 @@
 {
-  "packageId": "com.alcateia.alunos",
+  "packageId": "com.phricardo.alunos_cefetrj.twa",
   "host": "alcateia.phricardo.com",
   "name": "alcateia",
   "launcherName": "alcateia",
@@ -19,8 +19,8 @@
     "path": "./android.keystore",
     "alias": "android"
   },
-  "appVersionName": "13",
-  "appVersionCode": 13,
+  "appVersionName": "16",
+  "appVersionCode": 16,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://alcateia.phricardo.com/manifest.json",
@@ -41,5 +41,5 @@
   "protocolHandlers": [],
   "fileHandlers": [],
   "launchHandlerClientMode": "",
-  "appVersion": "13"
+  "appVersion": "16"
 }
