@@ -15,6 +15,7 @@ import {
 import { UserContext } from "@/contexts/user-context";
 import styles from "./page.module.css";
 import AdPlaceholderImage from "@/components/AdPlaceholderImage/AdPlaceholderImage";
+import { useBrowserNotification } from "@/hooks/useBrowserNotification";
 
 type LinkItem = {
   label: React.ReactNode;
@@ -25,6 +26,11 @@ type LinkItem = {
 
 export default function IndexPage() {
   const { user, isLoading } = React.useContext(UserContext);
+
+  useBrowserNotification({
+    title: "Bem-vindo!",
+    body: "Fique por dentro das novidades do portal.",
+  });
 
   const commonLinks: LinkItem[] = [
     {
