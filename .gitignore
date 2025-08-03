@@ -52,3 +52,5 @@ build/
 *.aab
 *.idsig
 /app/build
+/app/
+!src/app/
