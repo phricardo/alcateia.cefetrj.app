@@ -19,8 +19,8 @@
     "path": "./android.keystore",
     "alias": "android"
   },
-  "appVersionName": "16",
-  "appVersionCode": 16,
+  "appVersionName": "18",
+  "appVersionCode": 18,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://alcateia.phricardo.com/manifest.json",
@@ -41,5 +41,5 @@
   "protocolHandlers": [],
   "fileHandlers": [],
   "launchHandlerClientMode": "",
-  "appVersion": "16"
+  "appVersion": "18"
 }
