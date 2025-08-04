@@ -7,6 +7,30 @@ function cleanText(text: string) {
   return text.replace(/\s+/g, " ").trim();
 }
 
+function extrairnotasRef(link: string) {
+  const parts = link.split(";");
+  return parts.length > 1 ? parts[1] : link;
+}
+
+function parseNotasRef(notasRef: string) {
+  const [beforeQuery, queryString] = notasRef.split("?");
+  const obj: Record<string, string> = {};
+
+  if (beforeQuery.includes("=")) {
+    const [key, value] = beforeQuery.split("=");
+    obj[key === "jsessionid" ? "key" : key] = value;
+  }
+
+  if (queryString) {
+    const params = new URLSearchParams(queryString);
+    params.forEach((value, key) => {
+      obj[key] = value;
+    });
+  }
+
+  return obj;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const token = request.cookies.get("CEFETID_SSO");
@@ -34,13 +58,16 @@ export async function GET(request: NextRequest) {
       string,
       {
         nome: string;
+        codigoDisciplina: string;
         situacao: string;
         codigoTurma: string;
-        linkNotas: string;
+        notasQueryParams: Record<string, string>;
       }[]
     > = {};
 
-    $corpo("a.accordionTurma").each((_, el) => {
+    const semestreElements = $corpo("a.accordionTurma");
+
+    for (const el of semestreElements.toArray()) {
       const semestre = cleanText($corpo(el).text());
       const divTable = $corpo(el).parent().next("div");
 
@@ -49,21 +76,19 @@ export async function GET(request: NextRequest) {
         codigoDisciplina: string;
         situacao: string;
         codigoTurma: string;
-        linkNotas: string;
+        notasQueryParams: Record<string, string>;
       }[] = [];
 
-      divTable.find("table.table-turmas tbody tr").each((_, tr) => {
+      const trElements = divTable.find("table.table-turmas tbody tr");
+
+      for (const tr of trElements.toArray()) {
         const tds = $corpo(tr).find("td");
 
         const fullNome = $corpo(tds[0]).text().trim();
-
-        // Extrair código dentro dos parênteses
         const codigoDisciplinaMatch = fullNome.match(/\(([^)]+)\)/);
         const codigoDisciplina = codigoDisciplinaMatch
           ? codigoDisciplinaMatch[1].trim()
           : "";
-
-        // Remover o código e os parênteses do nome
         const nome = fullNome.replace(/\([^)]+\)/, "").trim();
 
         const situacao = $corpo(tds[1]).text().trim().toUpperCase();
@@ -71,21 +96,23 @@ export async function GET(request: NextRequest) {
 
         const linkNotasTag = $corpo(tds[3]).find("a");
         const rawHref = linkNotasTag.attr("href") || "";
-
         const match = rawHref.match(/loadDialog\('([^']+)'/);
         const linkNotas = match ? match[1] : rawHref;
+
+        const notasRef = extrairnotasRef(linkNotas);
+        const notasQueryParams = parseNotasRef(notasRef);
 
         disciplinas.push({
           nome,
           codigoDisciplina,
           situacao,
           codigoTurma,
-          linkNotas,
+          notasQueryParams,
         });
-      });
+      }
 
       resultado[semestre] = disciplinas;
-    });
+    }
 
     return NextResponse.json(
       { disciplinasPorSemestre: resultado },
